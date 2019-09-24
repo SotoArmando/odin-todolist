@@ -1,17 +1,18 @@
 nav {
-    background-color: rgb(44, 82, 250);
-    min-height: 1rem;
-    display: flex;
-    width: 55rem;
-    padding: .6rem 2.5rem;
-    align-self: center;
-    position: fixed;
-    justify-content: space-between;
+  background-color: rgb(44, 82, 250);
+  min-height: 1rem;
+  display: flex;
+  width: 55rem;
+  padding: 0.6rem 2.5rem;
+  align-self: center;
+  position: fixed;
+  justify-content: space-between;
 }
 
 nav > start {
-    display: flex;
+  display: flex;
 }
+
 nav > end {
-    display: flex;
+  display: flex;
 }

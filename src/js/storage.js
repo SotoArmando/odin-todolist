@@ -1,57 +1,55 @@
 debugger;
 let myLibrary = [];
 
-function storageAvailable(type = "localStorage") {
-    var storage;
-    try {
-        storage = window[type];
-        var x = "__storage_test__";
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    } catch (e) {
-        return (
-            e instanceof DOMException &&
+function storageAvailable(type = 'localStorage') {
+  let storage;
+  try {
+    storage = window[type];
+    const x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException
             // everything except Firefox
-            (e.code === 22 ||
+            && (e.code === 22
                 // Firefox
-                e.code === 1014 ||
+                || e.code === 1014
                 // test name field too, because code might not be present
                 // everything except Firefox
-                e.name === "QuotaExceededError" ||
+                || e.name === 'QuotaExceededError'
                 // Firefox
-                e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+                || e.name === 'NS_ERROR_DOM_QUOTA_REACHED')
             // acknowledge QuotaExceededError only if there's something already stored
-            (storage && storage.length !== 0)
-        );
-    }
-};
+            && (storage && storage.length !== 0)
+    );
+  }
+}
 
 
 const diststorage = () => {
-    
-    const setStorage = myLibrary => localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
-    const getStorage = myLibrary => {
-        if (myLibrary.length) {
-            setStorage(myLibrary);
-        } else if (localStorage.getItem("myLibrary")) {
-            const item = JSON.parse(localStorage.getItem("myLibrary"));
-     
-        }
-        return myLibrary;
-    };
-
-    if (storageAvailable()) {
-        if (localStorage.getItem("myLibrary")) {
-            myLibrary = getStorage(myLibrary);
-        }
-    } else {
-        myLibrary = [];
+  const setStorage = (myLibrary) => localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  const getStorage = (myLibrary) => {
+    if (myLibrary.length) {
+      setStorage(myLibrary);
+    } else if (localStorage.getItem('myLibrary')) {
+      const item = JSON.parse(localStorage.getItem('myLibrary'));
     }
-    
+    return myLibrary;
+  };
 
-    return { getStorage, setStorage }
+  if (storageAvailable()) {
+    if (localStorage.getItem('myLibrary')) {
+      myLibrary = getStorage(myLibrary);
+    }
+  } else {
+    myLibrary = [];
+  }
+
+
+  return { getStorage, setStorage };
 };
 
 
-export { diststorage }
+export { diststorage };
