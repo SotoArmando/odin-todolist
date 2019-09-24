@@ -12,48 +12,11 @@
     <link href="css/button.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <nav>
-        <start>
-            <button>Odin-todo</button>
-        </start>
-        <end>
-            <button>All Task</button>
-            <button>Completed Task</button>
-        </end>
-    </nav>
-
-    <wrapper id="content">
-        <start>
-            <box>
-                <box-head>
-                    This is a Note :D
-                </box-head>
-                <box-body>
-                    <start data-id="1">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur odio dignissimos nisi!
-                        Vero
-                        nam harum tempore in consequuntur, fugiat fugit sapiente laborum quae neque nostrum quia
-                        accusantium
-                        laboriosam sunt rem?
-                    </start>
-                    <end>
-                        <button>complete</button>
-                        <button onclick='document.querySelector(`box > box-body > start[data-id="1"]`).classList.toggle("active")'>collapse</button>
-                        <button>delete</button>
-                    </end>
-                </box-body>
-                <box-foot>
-                </box-foot>
-            </box>
-        </start>
-        <end></end>
-    </wrapper>
-</body>
+<div id="content"></div>
 <footer>
-
 </footer>
+</body>
 <script type="text/javascript" src="main.js">
 </script>
 

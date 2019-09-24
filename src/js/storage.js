@@ -1,6 +1,3 @@
-debugger;
-let myLibrary = [];
-
 function storageAvailable(type = 'localStorage') {
   let storage;
   try {
@@ -29,27 +26,19 @@ function storageAvailable(type = 'localStorage') {
 
 
 const diststorage = () => {
-  const setStorage = (myLibrary) => localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  const getStorage = (myLibrary) => {
-    if (myLibrary.length) {
-      setStorage(myLibrary);
-    } else if (localStorage.getItem('myLibrary')) {
-      const item = JSON.parse(localStorage.getItem('myLibrary'));
+  const setStorage = (data) => localStorage.setItem('todos', JSON.stringify(data));
+  const getStorage = (data) => {
+    let newData = data;
+    if (newData.length) {
+      setStorage(newData);
+    } else if (localStorage.getItem('todos')) {
+      newData = JSON.parse(localStorage.getItem('todos'));
     }
-    return myLibrary;
+    return newData;
   };
-
-  if (storageAvailable()) {
-    if (localStorage.getItem('myLibrary')) {
-      myLibrary = getStorage(myLibrary);
-    }
-  } else {
-    myLibrary = [];
-  }
-
 
   return { getStorage, setStorage };
 };
 
 
-export { diststorage };
+export default diststorage;

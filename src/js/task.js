@@ -1,19 +1,30 @@
+const TaskModel = () => {
+  // Default values
+  let newTitle = 'no title';
+  let newDescription = 'no description';
+  let newIsDone = false;
+  let newPriority = 0;
+  let newDueDate = new Date();
 
-function Task(title = 'no title', shortdescription = 'no description', completed = false, author = 'anonymous') {
-  this.title = title;
-  this.shortdescription = shortdescription;
-  this.pages = pages;
-  this.author = author;
-  this.status = 'no-completed';
-  this.read = function () {
-    if (this.status === 'no-completed') {
-      this.status = 'completed';
-    } else {
-      this.status = 'no-completed';
-    }
-    setStorage(myLibrary);
-    render();
+  const getTask = () => ({
+    title: newTitle,
+    description: newDescription,
+    isDone: newIsDone,
+    priority: newPriority,
+    dueDate: newDueDate,
+  });
+
+  const setTask = ({
+    title, description, isDone, priority, dueDate,
+  } = {}) => {
+    newTitle = title || newTitle;
+    newDescription = description || newDescription;
+    newIsDone = isDone || newIsDone;
+    newPriority = priority || newPriority;
+    newDueDate = dueDate || newDueDate;
   };
-}
 
-export { Task };
+  return { setTask, getTask };
+};
+
+export default TaskModel;
