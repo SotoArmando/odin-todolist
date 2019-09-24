@@ -1,0 +1,40 @@
+box {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+box > box-head {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+}
+
+box > box-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition-duration: 6s;
+}
+
+box > box-body > start {
+    align-self: flex-start;
+    max-height: 1.3rem;
+    overflow-y: hidden;
+    
+}
+
+box > box-body > start.active {
+    align-self: center;
+    max-height: unset;
+    overflow-y: unset;
+    
+}
+
+box > box-body > end {
+    display: flex;  
+    min-width: 15rem;
+    flex-direction: row;
+    align-self: flex-start;
+    color: red;
+    margin-left:1rem;
+}
