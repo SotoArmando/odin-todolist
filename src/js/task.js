@@ -1,12 +1,12 @@
-const Todo = (id, { title = 'no title', description = 'no description', isDone = false, isPriority = false, date = new Date() }) => {
+const Todo = (id, { title, tasks, description, isDone = false, isPriority = false, date }) => {
 
   const proto = {
-    title,
-    description,
+    title: 'No title' || title,
+    description: 'No description'|| description,
     isDone,
     isPriority,
     date,
-    tasks: [],
+    tasks : tasks.map((task,index) => Task(`${id}-${index}`,task)),
     id,
     type: 'Todo',
   }
@@ -40,12 +40,12 @@ const Todo = (id, { title = 'no title', description = 'no description', isDone =
   return { toggleDone, togglePriority, addTask, getTaskId, maptoHTML };
 };
 
-const Task = (id, { title = 'no title', description = 'no description', isDone = false }) => {
+const Task = (id = new Date().toISOString(), { title = 'no title', description = 'no description', isDone = false }) => {
   const proto = {
     title,
     description,
     isDone,
-    id: new Date().toISOString(),
+    id,
     type: 'Task',
   }
   const maptoHTML = () => `

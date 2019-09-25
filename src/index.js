@@ -1,6 +1,5 @@
 
 import { diststorage } from './js/storage';
-import { Task, Todo } from './js/task';
 import { render, getFocused, setFocused } from './js/views';
 
 const datastorage = diststorage().getStorage([]);
@@ -8,21 +7,18 @@ const datastorage = diststorage().getStorage([]);
 console.log([...datastorage])
 
 const addTask = () => {
-    debugger
-    let Todo = datastorage[getFocused()];
-    console.log("Todo " , datastorage, getFocused(), Todo)
     let form = document.querySelector("#task-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {})
-    let item = Task(Todo.getTaskId(), data);
-    Todo.addTask(item);
+    console.log(datastorage[getFocused()])
+    datastorage[getFocused()].tasks.push(data);
     render(datastorage);
 }
 
 const addTodo = () => {
     let form = document.querySelector("#todo-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
-    let item = Todo(datastorage.length, data);
-    datastorage.push(item);
+    data["tasks"] = [];
+    datastorage.push(data);
     render(datastorage);
 }
 

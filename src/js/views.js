@@ -1,9 +1,17 @@
+import { Task, Todo } from './task';
+import { diststorage } from './storage';
+
 let FocusedTodo = 0;
 const getFocused = () => FocusedTodo;
 const setFocused = (Index) => FocusedTodo = Index;
-
+const datastorage = diststorage();
 const render = (data) => {
+  datastorage.setStorage(data);
+
   let content = document.querySelector("#content");
+
+  data = data.map((item,index) => Todo(index,item));
+
   var result = data.map(item => item.maptoHTML()).join("");
   result = "<start>" + result + `<button onclick='document.querySelector("ux-body > box-todo").classList.toggle("visible")'>Add Todo</button></start>`
   content.innerHTML = result;
