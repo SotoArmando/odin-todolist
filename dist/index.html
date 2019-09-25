@@ -28,56 +28,6 @@
         </end>
     </nav>
     <wrapper id="content">
-        <start>
-            <box>
-                <box-head>
-                    This is a Note :D
-                </box-head>
-                <box-body>
-                    <start data-id="1">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur odio dignissimos nisi!
-                        Vero
-                        nam harum tempore in consequuntur, fugiat fugit sapiente laborum quae neque nostrum quia
-                        accusantium
-                        laboriosam sunt rem?
-                    </start>
-                    <end>
-                        <button>complete</button>
-                        <button
-                            onclick='document.querySelector(`box > box-body > start[data-id="1"]`).classList.toggle("active")'>collapse</button>
-                        <button>delete</button>
-                    </end>
-                </box-body>
-                <box-foot>
-                    <box-task>
-                        <start data-id="1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor cupiditate
-                            consequatur dolores officia</start>
-                        <end><button>complete</button><button
-                                onclick='document.querySelector(`box-task > start[data-id="1"]`).classList.toggle("active")'>collapse</button><button>delete</button>
-                        </end>
-                    </box-task>
-                    <box-task>
-                        <start data-id="2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor cupiditate
-                            consequatur dolores officia</start>
-                        <end><button>complete</button><button
-                                onclick='document.querySelector(`box-task > start[data-id="2"]`).classList.toggle("active")'>collapse</button><button>delete</button>
-                        </end>
-                    </box-task>
-                    <box-task>
-                        <start data-id="3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor cupiditate
-                            consequatur dolores officia</start>
-                        <end><button>complete</button><button
-                                onclick='document.querySelector(`box-task > start[data-id="3"]`).classList.toggle("active")'>collapse</button><button>delete</button>
-                        </end>
-                    </box-task>
-                    <button onclick='document.querySelector("ux-body > box").classList.toggle("visible")'>Add
-                        Task</button>
-
-                </box-foot>
-            </box>
-            <button onclick='document.querySelector("ux-body > box-todo").classList.toggle("visible")'>Add Todo</button>
-        </start>
-        <end></end>
     </wrapper>
     <ux-body>
         <box>
