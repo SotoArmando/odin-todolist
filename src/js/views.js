@@ -1,91 +1,41 @@
-const renderHomePage = (root) => {
-  const divElement = document.createElement('div');
-  divElement.innerHTML = `
-        <nav>
-        <start>
-            <button>Odin-todo</button>
-        </start>
-        <end>
-            <button>All Task</button>
-            <button>Completed Task</button>
-        </end>
-        </nav>
-        <wrapper id="content">
-        <start>
-            <box>
-                <box-head>
-                    This is a Note :D
-                </box-head>
-                <box-body>
-                    <start data-id="1">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur odio dignissimos nisi!
-                        Vero
-                        nam harum tempore in consequuntur, fugiat fugit sapiente laborum quae neque nostrum quia
-                        accusantium
-                        laboriosam sunt rem?
-                    </start>
-                    <end>
-                        <button>complete</button>
-                        <button>collapse</button>
-                        <button>delete</button>
-                    </end>
-                </box-body>
-                <box-foot>
-                </box-foot>
-            </box>
-        </start>
-        <end></end>
-    </wrapper>`;
+let FocusedTodo = 0;
+const getFocused = () => FocusedTodo;
+const setFocused = (Index) => FocusedTodo = Index;
 
-  root.appendChild(divElement);
-};
+const render = (data) => {
+  let content = document.querySelector("#content");
+  var result = data.map(item => item.maptoHTML()).join("");
+  result = "<start>" + result + `<button onclick='document.querySelector("ux-body > box-todo").classList.toggle("visible")'>Add Todo</button></start>`
+  content.innerHTML = result;
 
-const newTaskElement = (element, task, index) => {
-  const {
-    title, description, isDone, priority, dueDate,
-  } = task;
-  element.innerHTML = `
-              <section data-id="${index}" class="task">
-                  <h2 class="task-title>${title}</h2>
-                  <p>${description}</p>
-                  <button class="status">Status: ${isDone ? 'completed' : 'not completed'}</button>
-                  <p>Due: ${dueDate}</p>
-                  <p>priority: ${priority}</p>
-                  <button>collapse</button>
-                  <button>delete</button>
-              </section>`;
-  return element;
-};
+  document.querySelectorAll("box-body > end > button[data-id]").forEach(button => {
+    button.addEventListener("click", function () {
+      document.querySelector('box > box-body > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
+    });
+  })
 
-const addTask = (parent, task, index) => {
-  const divElement = document.createElement('div');
-  newTaskElement(divElement, task, index);
+  document.querySelectorAll("box-foot > button[data-id]").forEach(button => {
+    button.addEventListener("click", function () {
+      setFocused(this.dataset.id);
+      console.log("focused " + this.dataset.id)
+    });
+  })
 
-  parent.appendChild(divElement);
-  return parent;
-};
+  document.querySelectorAll("box-body > button[data-id]").forEach(button => {
+    button.addEventListener("click", function () {
+      setFocused(this.dataset.id);
+      console.log("focused " + this.dataset.id)
+    });
+  })
+
+  document.querySelectorAll("box-foot > box-task > end > button[data-id]").forEach(button => {
+    button.addEventListener("click", function () {
+      document.querySelector('box-task > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
+    });
+  })
 
 
-const renderTask = (parent, data) => {
-  const taskFragment = document.createDocumentFragment();
-  const loadTask = (task, index) => addTask(taskFragment, task, index);
-
-  data.forEach(loadTask);
-  parent.appendChild(taskFragment);
-  return parent;
-};
-
-const updateTask = (task, index) => {
-  const taskElement = document.querySelector(`[data-id=${index}]`);
-  newTaskElement(taskElement, task, index);
-};
-
-const deleteTask = (index) => {
-  const taskElement = document.querySelector(`[data-id=${index}]`);
-  taskElement.remove();
-};
+}
 
 
-export default {
-  renderHomePage, renderTask, addTask, updateTask, deleteTask,
-};
+export { render, getFocused, setFocused }

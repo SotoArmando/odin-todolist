@@ -26,13 +26,13 @@ function storageAvailable(type = 'localStorage') {
 
 
 const diststorage = () => {
-  const setStorage = (data) => localStorage.setItem('todos', JSON.stringify(data));
+  const setStorage = (data) => localStorage.setItem('Todos', JSON.stringify(data));
   const getStorage = (data) => {
     let newData = data;
     if (newData.length) {
       setStorage(newData);
-    } else if (localStorage.getItem('todos')) {
-      newData = JSON.parse(localStorage.getItem('todos'));
+    } else if (localStorage.getItem('Todos')) {
+      newData = JSON.parse(localStorage.getItem('Todos'));
     }
     return newData;
   };
@@ -41,4 +41,4 @@ const diststorage = () => {
 };
 
 
-export default diststorage;
+export { diststorage };
