@@ -2,16 +2,15 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
 
   const proto = {
     title: 'No title' || title,
-    description: 'No description'|| description,
+    description: 'No description' || description,
     isDone,
     isPriority,
     date,
-    tasks : tasks.map((task,index) => Task(`${id}-${index}`,task)),
+    tasks: tasks.map((task, index) => Task(`${id}-${index}`, task)),
     id,
     type: 'Todo',
   }
 
-  const remove = () => { }
   const getTaskId = () => proto.tasks.length
   const toggleDone = () => { proto.isDone = !proto.isDone; }
   const togglePriority = () => { proto.isPriority = !proto.isPriority; }
@@ -37,6 +36,7 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
     </box-foot>
   </box>
 `
+
   return { toggleDone, togglePriority, addTask, getTaskId, maptoHTML };
 };
 

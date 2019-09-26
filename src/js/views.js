@@ -6,6 +6,7 @@ const getFocused = () => FocusedTodo;
 const setFocused = (Index) => FocusedTodo = Index;
 const datastorage = diststorage();
 const render = (data) => {
+  debugger;
   datastorage.setStorage(data);
 
   let content = document.querySelector("#content");

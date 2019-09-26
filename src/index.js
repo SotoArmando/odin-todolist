@@ -1,6 +1,9 @@
 
 import { diststorage } from './js/storage';
 import { render, getFocused, setFocused } from './js/views';
+import { buildLayout } from './js/dom';
+
+
 
 const datastorage = diststorage().getStorage([]);
 
@@ -32,9 +35,11 @@ const removeTodo = (Index) => {
     render(datastorage);
 }
 
+buildLayout();
 render(datastorage);
 
 document.querySelector("box-todo > button:first-of-type").addEventListener("click", () => {
+    console.log("add todo :D.")
     addTodo();
 });
 document.querySelector("box-todo > button:last-of-type").addEventListener("click", () => {
@@ -42,6 +47,7 @@ document.querySelector("box-todo > button:last-of-type").addEventListener("click
 });
 
 document.querySelector("box > button:first-of-type").addEventListener("click", () => {
+    console.log("add todo :D.")
     addTask();
 });
 document.querySelector("box > button:last-of-type").addEventListener("click", () => {
