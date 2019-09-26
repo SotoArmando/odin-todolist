@@ -1,4 +1,4 @@
-const buildLayout = () => {
+const buildLayout = (proto) => {
 
     let nav = document.createElement("nav");
     let navstart = document.createElement("start");
@@ -95,8 +95,114 @@ const buildLayout = () => {
     document.querySelector("body").appendChild(uxbody);
 }
 
+const renderTodo = (proto) => {
+
+    
+
+    //   <box>
+    //     <box-head>
+    //         ${proto.title} ${proto.isDone} ${proto.isPriority}
+    //     </box-head>
+    //     <box-body>
+    //         <start data-id="${proto.id}">
+    //           ${proto.description}
+    //         </start>
+    //         <end>
+    //             <button>complete</button>
+    //             <button data-id="${proto.id}" >collapse</button>
+    //             <button>delete</button>
+    //         </end>
+    //     </box-body>
+    //     <box-foot>
+    //         ${proto.tasks.map(task => task.maptoHTML()).join("")}
+    //         <button data-id='${proto.id}' onclick='document.querySelector("ux-body > box").classList.toggle("visible")'>Add Task</button>
+    //     </box-foot>
+    //   </box>
+
+    let box = document.createElement("box");
+    let boxhead = document.createElement("box-head");
+    boxhead.innerText = `${proto.title} ${proto.isDone} ${proto.isPriority}`
+
+    let boxbody = document.createElement("box-body");
+    let boxbodystart = document.createElement("start");
+    boxbodystart.innerText = proto.description
+    boxbodystart.setAttribute("data-id", proto.id);
+
+    let boxbodyend = document.createElement("end");
+    let boxfoot = document.createElement("box-foot");
+    let tasks = proto.tasks.map(task => task.maptoHTML());
+    let button0 = document.createElement("button");
+    let button1 = document.createElement("button");
+    let button2 = document.createElement("button");
+    let button3 = document.createElement("button");
+    button3.setAttribute("data-id",proto.id)
+    button3.onclick = () => { document.querySelector("ux-body > box").classList.toggle("visible") };
+    button3.innerText = "Add Task"
+
+    box.appendChild(boxhead)
+    
+    if (tasks.length > 0) {
+        tasks.reduce((pvalue, cvalue, index, r) => {
+            boxbodystart.appendChild(cvalue)
+        });
+    }
+    
+    boxbody.appendChild(boxbodystart)
+    button0.innerText = "complete";
+
+    boxbodyend.appendChild(button0);
+    button1.innerText = "collapse"
+    button1.setAttribute("data-id",proto.id)
+
+    boxbodyend.appendChild(button1);
+    button2.innerText = "delete"
+
+    boxbodyend.appendChild(button2);
+    boxbody.appendChild(boxbodyend)
+    box.appendChild(boxbody)
+
+    boxfoot.appendChild(button3)
+    box.appendChild(boxfoot)
+    
+    return box;
+}
+
+const renderTask = (proto) => {
+    
+    
+
+    //   <box-task>
+    //     <start data-id="${proto.id}">${proto.description}</start>
+    //     <end>
+    //       <button>${isDone ? 'Completed' : 'no-Completed'}</button>
+    //       <button data-id="${proto.id}">collapse</button>
+    //       <button>delete</button>
+    //     </end>
+    //   </box-task>
+
+    let boxtask = document.createElement("box-task")
+    let start = document.createElement("start")
+    start.textContent = proto.description
+    let end = document.createElement("end")
+    let button0 = document.createElement("button")
+    button0.innerText = proto.isDone ? 'Completed' : 'no-Completed'
+    let button1 = document.createElement("button")
+    button1.setAttribute("data-id",proto.id)
+    button1.innerText = "collapse"
+    let button2 = document.createElement("button")
+    button2.innerText = "delete"
+
+    boxtask.appendChild(start)
+    end.appendChild(button0)
+    end.appendChild(button1)
+    end.appendChild(button2)
+    boxtask.appendChild(end)
+    
+    return boxtask;
+}
+
 const renderLayout = () => {
 
 }
 
-export { renderLayout, buildLayout }
+export { renderLayout, buildLayout, renderTask, renderTodo }

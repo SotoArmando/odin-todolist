@@ -10,13 +10,28 @@ const render = (data) => {
   datastorage.setStorage(data);
 
   let content = document.querySelector("#content");
+  content.innerHTML = "";
+  let wrapper = document.querySelector("wrapper");
+  let wrapperstart = document.createElement("start");
+  
+  wrapper.appendChild(wrapperstart);
 
-  data = data.map((item,index) => Todo(index,item));
+  data = data.map((item, index) => Todo(index, item));
 
-  var result = data.map(item => item.maptoHTML()).join("");
-  result = "<start>" + result + `<button onclick='document.querySelector("ux-body > box-todo").classList.toggle("visible")'>Add Todo</button></start>`
-  content.innerHTML = result;
+  var result = data.map(item => item.maptoHTML());
+  if (result.length > 0) {
+    result.reduce((itemp, itemc, index, res) => wrapperstart.appendChild(itemc));
+  }
+  
+  
+  let addTodobutton = document.createElement("button");
+  addTodobutton.innerText = "Add Todo"
+  addTodobutton.onclick = () => {
+    document.querySelector("ux-body > box-todo").classList.toggle("visible")
+  }
 
+  wrapperstart.appendChild(addTodobutton);
+  
   document.querySelectorAll("box-body > end > button[data-id]").forEach(button => {
     button.addEventListener("click", function () {
       document.querySelector('box > box-body > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
@@ -42,8 +57,6 @@ const render = (data) => {
       document.querySelector('box-task > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
     });
   })
-
-
 }
 
 

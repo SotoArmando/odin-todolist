@@ -1,3 +1,5 @@
+import { renderTask, renderTodo } from './dom';
+
 const Todo = (id, { title, tasks, description, isDone = false, isPriority = false, date }) => {
 
   const proto = {
@@ -15,27 +17,7 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
   const toggleDone = () => { proto.isDone = !proto.isDone; }
   const togglePriority = () => { proto.isPriority = !proto.isPriority; }
   const addTask = (task) => { proto.tasks.push(task); }
-  const maptoHTML = () => `
-  <box>
-    <box-head>
-        ${proto.title} ${proto.isDone} ${proto.isPriority}
-    </box-head>
-    <box-body>
-        <start data-id="${proto.id}">
-          ${proto.description}
-        </start>
-        <end>
-            <button>complete</button>
-            <button data-id="${proto.id}" >collapse</button>
-            <button>delete</button>
-        </end>
-    </box-body>
-    <box-foot>
-        ${proto.tasks.map(task => task.maptoHTML()).join("")}
-        <button data-id='${proto.id}' onclick='document.querySelector("ux-body > box").classList.toggle("visible")'>Add Task</button>
-    </box-foot>
-  </box>
-`
+  const maptoHTML = () => renderTodo(proto)
 
   return { toggleDone, togglePriority, addTask, getTaskId, maptoHTML };
 };
@@ -48,16 +30,7 @@ const Task = (id = new Date().toISOString(), { title = 'no title', description =
     id,
     type: 'Task',
   }
-  const maptoHTML = () => `
-  <box-task>
-    <start data-id="${proto.id}">${proto.description}</start>
-    <end>
-      <button>${isDone ? 'Completed' : 'no-Completed'}</button>
-      <button data-id="${proto.id}">collapse</button>
-      <button>delete</button>
-    </end>
-  </box-task>
-  `;
+  const maptoHTML = () => renderTask(proto);
   return { maptoHTML }
 }
 

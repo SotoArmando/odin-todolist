@@ -29,6 +29,8 @@ box>box-body>start {
   align-self: flex-start;
   max-height: 1.35rem;
   overflow-y: hidden;
+  display: table;
+  width: 100%;
 }
 
 box>box-body>start.active {
@@ -62,6 +64,7 @@ box-task {
 box-task>start {
   max-height: 1.35rem;
   overflow-y: hidden;
+  
 }
 
 box-task>start.active {
