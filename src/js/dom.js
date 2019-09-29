@@ -229,7 +229,7 @@ const renderLayout = () => {
 const render = (data) => {
     debugger;
 
-    let datastorage = diststorage();
+    const datastorage = diststorage();
 
     datastorage.setStorage(data);
 
@@ -239,10 +239,16 @@ const render = (data) => {
     let wrapperstart = document.createElement("start");
 
     wrapper.appendChild(wrapperstart);
+    
+    if (data.length > 0) {
+        data = data.map((item, index) => Todo(index, item));
+    }
+    
+    var result = []
 
-    data = data.map((item, index) => Todo(index, item));
-
-    var result = data.map(item => item.maptoHTML());
+    if (data.length > 0) {
+        result = data.map(item => item.maptoHTML());
+    } 
 
     if (result.length > 0) {
         result.reduce((itemp, itemc, index, res) => wrapperstart.appendChild(itemc));
@@ -270,7 +276,9 @@ const render = (data) => {
 
     document.querySelectorAll("box-body > end > button[data-tone='delete-todo']").forEach(button => {
         button.addEventListener("click", function () {
-            console.log(this.dataset.id)
+            datastorage.removeTodo(this.dataset.id);
+            this.parentNode.parentNode.parentNode.remove();
+            
         });
     })
 
@@ -282,8 +290,9 @@ const render = (data) => {
 
     document.querySelectorAll("box-task > end > button[data-tone='delete-task']").forEach(button => {
         button.addEventListener("click", function () {
-            console.log(this.dataset.id)
+            datastorage.removeTask(this.dataset.id);
             this.parentNode.parentNode.remove();
+            
         });
     })
 

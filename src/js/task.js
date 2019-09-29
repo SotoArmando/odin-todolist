@@ -8,7 +8,7 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
     isDone,
     isPriority,
     date,
-    tasks: tasks.map((task, index) => Task(`${id}-${index}`, task)),
+    tasks: (tasks) ? tasks.map((task, index) => Task(`${id}-${index}`, task)) : [],
     id,
     type: 'Todo',
   }
@@ -30,8 +30,9 @@ const Task = (id = new Date().toISOString(), { title = 'no title', description =
     id,
     type: 'Task',
   }
+  const toggleDone = () => { proto.isDone = !proto.isDone; }
   const maptoHTML = () => renderTask(proto);
-  return { maptoHTML }
+  return { toggleDone, maptoHTML }
 }
 
 

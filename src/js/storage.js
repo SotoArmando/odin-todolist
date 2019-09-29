@@ -1,3 +1,7 @@
+import { render } from './dom';
+import { getFocused } from './views';
+
+
 function storageAvailable(type = 'localStorage') {
   let storage;
   try {
@@ -9,23 +13,57 @@ function storageAvailable(type = 'localStorage') {
   } catch (e) {
     return (
       e instanceof DOMException
-            // everything except Firefox
-            && (e.code === 22
-                // Firefox
-                || e.code === 1014
-                // test name field too, because code might not be present
-                // everything except Firefox
-                || e.name === 'QuotaExceededError'
-                // Firefox
-                || e.name === 'NS_ERROR_DOM_QUOTA_REACHED')
-            // acknowledge QuotaExceededError only if there's something already stored
-            && (storage && storage.length !== 0)
+      // everything except Firefox
+      && (e.code === 22
+        // Firefox
+        || e.code === 1014
+        // test name field too, because code might not be present
+        // everything except Firefox
+        || e.name === 'QuotaExceededError'
+        // Firefox
+        || e.name === 'NS_ERROR_DOM_QUOTA_REACHED')
+      // acknowledge QuotaExceededError only if there's something already stored
+      && (storage && storage.length !== 0)
     );
   }
 }
 
 
 const diststorage = () => {
+
+  const removeTodo = (id) => {
+    let nextState = getStorage([]);
+    console.log(nextState)
+    nextState.splice(id - 1, 1);
+    console.log(id)
+    setStorage(nextState);
+  }
+
+  const removeTask = (id) => {
+    const { 0: todoId, 1: taskId } = id.split("-");
+    let nextState = getStorage([]);
+    nextState[todoId].tasks.splice(taskId - 1, 1);
+    setStorage(nextState);
+  }
+
+  const addTask = () => {
+    let form = document.querySelector("#task-form");
+    let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {})
+    let datastorage = [...getStorage([])];
+    datastorage[getFocused()].tasks.push(data);
+    render(datastorage);
+  }
+
+  const addTodo = () => {
+    let form = document.querySelector("#todo-form");
+    let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
+    data["tasks"] = [];
+    let datastorage = [...getStorage([])];
+    console.log(data);
+    datastorage.push(data);
+    render(datastorage);
+  }
+
   const setStorage = (data) => localStorage.setItem('Todos', JSON.stringify(data));
   const getStorage = (data) => {
     let newData = data;
@@ -33,11 +71,12 @@ const diststorage = () => {
       setStorage(newData);
     } else if (localStorage.getItem('Todos')) {
       newData = JSON.parse(localStorage.getItem('Todos'));
+      newData = newData.hasOwnProperty('length') ?  newData : [newData]
     }
     return newData;
   };
 
-  return { getStorage, setStorage };
+  return { getStorage, setStorage, removeTask, removeTodo, addTask, addTodo };
 };
 
 
