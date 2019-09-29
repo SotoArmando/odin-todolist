@@ -1,3 +1,9 @@
+import { diststorage } from './storage';
+import { setFocused } from './views';
+import { Todo } from './task';
+
+
+
 const buildLayout = (proto) => {
 
     let nav = document.createElement("nav");
@@ -97,7 +103,7 @@ const buildLayout = (proto) => {
 
 const renderTodo = (proto) => {
 
-    
+
 
     //   <box>
     //     <box-head>
@@ -125,8 +131,9 @@ const renderTodo = (proto) => {
 
     let boxbody = document.createElement("box-body");
     let boxbodystart = document.createElement("start");
-    let span =  document.createElement("span");
+    let span = document.createElement("span");
     span.innerText = proto.description;
+    console.log("proto.description", proto.description)
     boxbodystart.appendChild(span);
     boxbodystart.setAttribute("data-id", proto.id);
 
@@ -137,27 +144,32 @@ const renderTodo = (proto) => {
     let button1 = document.createElement("button");
     let button2 = document.createElement("button");
     let button3 = document.createElement("button");
-    button3.setAttribute("data-id",proto.id)
+    button3.setAttribute("data-id", proto.id)
     button3.onclick = () => { document.querySelector("ux-body > box").classList.toggle("visible") };
     button3.innerText = "Add Task"
 
     box.appendChild(boxhead)
-    
+
     if (tasks.length > 0) {
         tasks.reduce((pvalue, cvalue, index, r) => {
             boxbodystart.appendChild(cvalue)
         });
     }
-    
+
     boxbody.appendChild(boxbodystart)
     button0.innerText = "complete";
+    button0.setAttribute("data-tone", "complete-todo")
+    button0.setAttribute("data-id", proto.id)
 
     boxbodyend.appendChild(button0);
     button1.innerText = "collapse"
-    button1.setAttribute("data-id",proto.id)
+    button1.setAttribute("data-tone", "collapse-todo")
+    button1.setAttribute("data-id", proto.id)
 
     boxbodyend.appendChild(button1);
     button2.innerText = "delete"
+    button2.setAttribute("data-tone", "delete-todo")
+    button2.setAttribute("data-id", proto.id)
 
     boxbodyend.appendChild(button2);
     boxbody.appendChild(boxbodyend)
@@ -165,18 +177,18 @@ const renderTodo = (proto) => {
 
     boxfoot.appendChild(button3)
     box.appendChild(boxfoot)
-    
+
     return box;
 }
 
 const renderTask = (proto) => {
-    
-    
+
+
 
     //   <box-task>
     //     <start data-id="${proto.id}">${proto.description}</start>
     //     <end>
-    //       <button>${isDone ? 'Completed' : 'no-Completed'}</button>
+    //       <button>${isDone ? 'Completed' : 'complete'}</button>
     //       <button data-id="${proto.id}">collapse</button>
     //       <button>delete</button>
     //     </end>
@@ -184,15 +196,22 @@ const renderTask = (proto) => {
 
     let boxtask = document.createElement("box-task")
     let start = document.createElement("start")
-    start.setAttribute("data-id",proto.id)
+    start.setAttribute("data-id", proto.id)
     start.textContent = proto.description
     let end = document.createElement("end")
     let button0 = document.createElement("button")
-    button0.innerText = proto.isDone ? 'Completed' : 'no-Completed'
+    button0.setAttribute("data-tone", "complete-task")
+    button0.setAttribute("data-id", proto.id)
+    button0.innerText = proto.isDone ? 'Completed' : 'complete'
+
     let button1 = document.createElement("button")
-    button1.setAttribute("data-id",proto.id)
+    button1.setAttribute("data-tone", "collapse-task")
+    button1.setAttribute("data-id", proto.id)
     button1.innerText = "collapse"
+
     let button2 = document.createElement("button")
+    button2.setAttribute("data-tone", "delete-task")
+    button2.setAttribute("data-id", proto.id)
     button2.innerText = "delete"
 
     boxtask.appendChild(start)
@@ -200,12 +219,96 @@ const renderTask = (proto) => {
     end.appendChild(button1)
     end.appendChild(button2)
     boxtask.appendChild(end)
-    
+
     return boxtask;
 }
 
 const renderLayout = () => {
 
 }
+const render = (data) => {
+    debugger;
 
-export { renderLayout, buildLayout, renderTask, renderTodo }
+    let datastorage = diststorage();
+
+    datastorage.setStorage(data);
+
+    let content = document.querySelector("#content");
+    content.innerHTML = "";
+    let wrapper = document.querySelector("wrapper");
+    let wrapperstart = document.createElement("start");
+
+    wrapper.appendChild(wrapperstart);
+
+    data = data.map((item, index) => Todo(index, item));
+
+    var result = data.map(item => item.maptoHTML());
+
+    if (result.length > 0) {
+        result.reduce((itemp, itemc, index, res) => wrapperstart.appendChild(itemc));
+    }
+
+    let addTodobutton = document.createElement("button");
+    addTodobutton.innerText = "Add Todo"
+    addTodobutton.onclick = () => {
+        document.querySelector("ux-body > box-todo").classList.toggle("visible")
+    }
+
+    wrapperstart.appendChild(addTodobutton);
+
+    document.querySelectorAll("box-body > end > button[data-tone='collapse-todo']").forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelector('box > box-body > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
+        });
+    })
+
+    document.querySelectorAll("box-body > end > button[data-tone='complete-todo']").forEach(button => {
+        button.addEventListener("click", function () {
+            console.log(this.dataset.id)
+        });
+    })
+
+    document.querySelectorAll("box-body > end > button[data-tone='delete-todo']").forEach(button => {
+        button.addEventListener("click", function () {
+            console.log(this.dataset.id)
+        });
+    })
+
+    document.querySelectorAll("box-task > end > button[data-tone='collapse-task']").forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelector('box-task > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
+        });
+    })
+
+    document.querySelectorAll("box-task > end > button[data-tone='delete-task']").forEach(button => {
+        button.addEventListener("click", function () {
+            console.log(this.dataset.id)
+            this.parentNode.parentNode.remove();
+        });
+    })
+
+    document.querySelectorAll("box-task > end > button[data-tone='complete-task']").forEach(button => {
+        button.addEventListener("click", function () {
+            this.innerText = this.innerText ===  "complete" ? "Completed" : "complete" ;
+            console.log(this.dataset.id)
+        });
+    })
+
+    document.querySelectorAll("box-foot > button[data-id]").forEach(button => {
+        button.addEventListener("click", function () {
+            setFocused(this.dataset.id);
+            console.log("focused " + this.dataset.id)
+        });
+    })
+
+    document.querySelectorAll("box-body > button[data-id]").forEach(button => {
+        button.addEventListener("click", function () {
+            setFocused(this.dataset.id);
+            console.log("focused " + this.dataset.id)
+        });
+    })
+
+
+}
+
+export { renderLayout, buildLayout, renderTask, renderTodo, render }

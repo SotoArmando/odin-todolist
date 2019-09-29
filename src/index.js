@@ -1,13 +1,14 @@
 
 import { diststorage } from './js/storage';
-import { render, getFocused, setFocused } from './js/views';
-import { buildLayout } from './js/dom';
-
-
+import { getFocused } from './js/views';
+import { buildLayout, render  } from './js/dom';
 
 const datastorage = diststorage().getStorage([]);
 
 console.log([...datastorage])
+
+buildLayout();
+render(datastorage);
 
 const addTask = () => {
     let form = document.querySelector("#task-form");
@@ -35,8 +36,7 @@ const removeTodo = (Index) => {
     render(datastorage);
 }
 
-buildLayout();
-render(datastorage);
+
 
 document.querySelector("box-todo > button:first-of-type").addEventListener("click", () => {
     console.log("add todo :D.")

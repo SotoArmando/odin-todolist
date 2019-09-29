@@ -3,8 +3,8 @@ import { renderTask, renderTodo } from './dom';
 const Todo = (id, { title, tasks, description, isDone = false, isPriority = false, date }) => {
 
   const proto = {
-    title: 'No title' || title,
-    description: description,
+    title: title || 'No title',
+    description: description || 'No Description',
     isDone,
     isPriority,
     date,
