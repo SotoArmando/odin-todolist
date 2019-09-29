@@ -24,8 +24,8 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
 
 const Task = (id = new Date().toISOString(), { title = 'no title', description = 'no description', isDone = false }) => {
   const proto = {
-    title,
-    description,
+    title: title || 'No Title',
+    description: description || 'No Description',
     isDone,
     id,
     type: 'Task',
