@@ -184,6 +184,7 @@ const renderTask = (proto) => {
 
     let boxtask = document.createElement("box-task")
     let start = document.createElement("start")
+    start.setAttribute("data-id",proto.id)
     start.textContent = proto.description
     let end = document.createElement("end")
     let button0 = document.createElement("button")

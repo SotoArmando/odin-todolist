@@ -52,7 +52,7 @@ const render = (data) => {
     });
   })
 
-  document.querySelectorAll("box-foot > box-task > end > button[data-id]").forEach(button => {
+  document.querySelectorAll("box-task > end > button[data-id]").forEach(button => {
     button.addEventListener("click", function () {
       document.querySelector('box-task > start[data-id="' + this.dataset.id + '"]').classList.toggle('active')
     });
