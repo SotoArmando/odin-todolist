@@ -125,7 +125,9 @@ const renderTodo = (proto) => {
 
     let boxbody = document.createElement("box-body");
     let boxbodystart = document.createElement("start");
-    boxbodystart.innerText = proto.description
+    let span =  document.createElement("span");
+    span.innerText = proto.description;
+    boxbodystart.appendChild(span);
     boxbodystart.setAttribute("data-id", proto.id);
 
     let boxbodyend = document.createElement("end");

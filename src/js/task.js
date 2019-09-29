@@ -4,7 +4,7 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
 
   const proto = {
     title: 'No title' || title,
-    description: 'No description' || description,
+    description: description,
     isDone,
     isPriority,
     date,
