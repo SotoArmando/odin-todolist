@@ -20,28 +20,25 @@ const buildLayout = (proto) => {
     let option1 = document.createElement("option");
     let option2 = document.createElement("option");
     let option3 = document.createElement("option");
-    
-    option0.innerText = "Default Project";
-    option1.innerText = "Haio";
-    option2.innerText = "Haio";
-    option3.innerText = "Haio";
 
-    option0.value = "a"
-    option1.value = "a"
-    option2.value = "a"
-    option3.value = "a"
+    option0.innerText = "Default Project";
+    option1.innerText = "Project One";
+
+
+    option0.value = "Todos"
+    option1.value = "Project One"
+
 
 
     button3.appendChild(option0);
     button3.appendChild(option1);
-    button3.appendChild(option2);
-    button3.appendChild(option3);
-    
+
+
     button0.innerText = "Odin-todo";
     button1.innerText = "All Task";
     button2.innerText = "Completed Task";
     button4.innerText = "New Project";
-    
+
     navstart.appendChild(button0);
     navmiddle.appendChild(button3);
     navend.appendChild(button1);
@@ -231,9 +228,9 @@ const renderTask = (proto) => {
     let button0 = document.createElement("button")
     button0.setAttribute("data-tone", "complete-task")
     button0.setAttribute("data-id", proto.id);
-    
+
     debugger;
-    
+
     button0.innerText = proto.IsDone ? 'Completed' : 'Complete'
 
     let button1 = document.createElement("button")
@@ -263,7 +260,7 @@ const render = (data) => {
 
     const datastorage = diststorage();
 
-    datastorage.setStorage(data);
+    datastorage.setStorage(data,document.querySelector("nav select").value);
 
     let content = document.querySelector("#content");
     content.innerHTML = "";
@@ -271,16 +268,16 @@ const render = (data) => {
     let wrapperstart = document.createElement("start");
 
     wrapper.appendChild(wrapperstart);
-    
+
     if (data.length > 0) {
         data = data.map((item, index) => Todo(index, item));
     }
-    
+
     var result = []
 
     if (data.length > 0) {
         result = data.map(item => item.maptoHTML());
-    } 
+    }
 
     if (result.length > 0) {
         result.forEach((value) => wrapperstart.appendChild(value))
@@ -302,20 +299,20 @@ const render = (data) => {
 
     document.querySelectorAll("box-body > end > button[data-tone='complete-todo']").forEach(button => {
         button.addEventListener("click", function () {
-            this.innerText = this.innerText ===  "Complete" ? "Completed" : "Complete" ;
+            this.innerText = this.innerText === "Complete" ? "Completed" : "Complete";
             let data = datastorage.getStorage([])[this.dataset.id];
             debugger;
             data.IsDone = !data.IsDone;
-            datastorage.updateTodo(this.dataset.id,data);
+            datastorage.updateTodo(this.dataset.id, data, document.querySelector("nav select").value);
             console.log(this.dataset.id)
         });
     })
 
     document.querySelectorAll("box-body > end > button[data-tone='delete-todo']").forEach(button => {
         button.addEventListener("click", function () {
-            datastorage.removeTodo(this.dataset.id);
+            datastorage.removeTodo(this.dataset.id, document.querySelector("nav select").value);
             this.parentNode.parentNode.parentNode.remove();
-            
+
         });
     })
 
@@ -327,19 +324,19 @@ const render = (data) => {
 
     document.querySelectorAll("box-task > end > button[data-tone='delete-task']").forEach(button => {
         button.addEventListener("click", function () {
-            datastorage.removeTask(this.dataset.id);
+            datastorage.removeTask(this.dataset.id, document.querySelector("nav select").value);
             this.parentNode.parentNode.remove();
-            
+
         });
     })
 
     document.querySelectorAll("box-task > end > button[data-tone='complete-task']").forEach(button => {
         button.addEventListener("click", function () {
-            this.innerText = this.innerText ===  "Complete" ? "Completed" : "Complete" ;
+            this.innerText = this.innerText === "Complete" ? "Completed" : "Complete";
             const { 0: todoId, 1: taskId } = this.dataset.id.split("-");
             let data = datastorage.getStorage([])[todoId].tasks[taskId];
             data.IsDone = !data.IsDone;
-            datastorage.updateTask(this.dataset.id,data);
+            datastorage.updateTask(this.dataset.id, data, document.querySelector("nav select").value);
             console.log(this.dataset.id)
         });
     })
@@ -357,6 +354,12 @@ const render = (data) => {
             console.log("focused " + this.dataset.id)
         });
     })
+
+    document.querySelector("nav select").addEventListener("change", function () {
+         datastorage.switchProject(this.value)
+    })
+
+
 
 
 }

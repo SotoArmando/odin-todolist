@@ -31,65 +31,74 @@ function storageAvailable(type = 'localStorage') {
 
 const diststorage = () => {
 
-  const removeTodo = (id) => {
-    let nextState = getStorage([]);
+  const removeTodo = (id,project) => {
+    let nextState = getStorage([],project);
     console.log(nextState)
     nextState.splice(id - 1, 1);
     console.log(id)
-    setStorage(nextState);
+    setStorage(nextState,project);
   }
-  const updateTodo = (id,Todo) => {
-    let nextState = getStorage([]);
+  const updateTodo = (id,Todo,project) => {
+    let nextState = getStorage([],project);
     console.log(nextState)
     nextState[id] = Todo;
     console.log(id)
-    setStorage(nextState);
+    setStorage(nextState,project);
   }
-  const removeTask = (id) => {
+  const removeTask = (id,project) => {
     const { 0: todoId, 1: taskId } = id.split("-");
-    let nextState = getStorage([]);
+    let nextState = getStorage([],project);
     nextState[todoId].tasks.splice(taskId - 1, 1);
-    setStorage(nextState);
+    setStorage(nextState,project);
   }
 
-  const updateTask = (id, Task) => {
+  const updateTask = (id, Task,project) => {
     const { 0: todoId, 1: taskId } = id.split("-");
-    let nextState = getStorage([]);
+    let nextState = getStorage([],project);
     nextState[todoId].tasks[taskId] = Task;
-    setStorage(nextState);
+    setStorage(nextState,project);
   }
 
-  const addTask = () => {
+  const addTask = (project) => {
     let form = document.querySelector("#task-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {})
-    let datastorage = [...getStorage([])];
+    let datastorage = [...getStorage([],project)];
     datastorage[getFocused()].tasks.push(data);
-    render(datastorage);
+    render(datastorage,project);
   }
 
-  const addTodo = () => {
+  const addTodo = (project) => {
     let form = document.querySelector("#todo-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
     data["tasks"] = [];
-    let datastorage = [...getStorage([])];
+    let datastorage = [...getStorage([],project)];
     console.log(data);
     datastorage.push(data);
+    render(datastorage,project);
+  }
+
+  const switchProject = (project) => {
+    let theproject = project || "Todos"; 
+    console.log(theproject)
+    let datastorage = [...getStorage([],theproject)];
+    console.log(datastorage)
+    
     render(datastorage);
   }
 
-  const setStorage = (data) => localStorage.setItem('Todos', JSON.stringify(data));
-  const getStorage = (data) => {
+  const setStorage = (data,project) => localStorage.setItem(project || "Todos", JSON.stringify(data));
+  const getStorage = (data,project) => {
     let newData = data;
     if (newData.length) {
       setStorage(newData);
-    } else if (localStorage.getItem('Todos')) {
-      newData = JSON.parse(localStorage.getItem('Todos'));
+    } else if (localStorage.getItem(project || 'Todos')) {
+      newData = JSON.parse(localStorage.getItem(project || 'Todos'));
       newData = newData.hasOwnProperty('length') ? newData : [newData]
     }
     return newData;
   };
 
-  return { getStorage, setStorage, removeTask, updateTask, removeTodo, addTask, addTodo, updateTodo };
+  return { getStorage, setStorage, removeTask, updateTask, removeTodo, addTask, addTodo, updateTodo, switchProject };
 };
 
 
