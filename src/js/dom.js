@@ -8,18 +8,47 @@ const buildLayout = (proto) => {
 
     let nav = document.createElement("nav");
     let navstart = document.createElement("start");
+    let navmiddle = document.createElement("middle");
     let navend = document.createElement("end");
     let button0 = document.createElement("button");
     let button1 = document.createElement("button");
     let button2 = document.createElement("button");
+    let button3 = document.createElement("select");
+    let button4 = document.createElement("button");
 
+    let option0 = document.createElement("option");
+    let option1 = document.createElement("option");
+    let option2 = document.createElement("option");
+    let option3 = document.createElement("option");
+    
+    option0.innerText = "Default Project";
+    option1.innerText = "Haio";
+    option2.innerText = "Haio";
+    option3.innerText = "Haio";
+
+    option0.value = "a"
+    option1.value = "a"
+    option2.value = "a"
+    option3.value = "a"
+
+
+    button3.appendChild(option0);
+    button3.appendChild(option1);
+    button3.appendChild(option2);
+    button3.appendChild(option3);
+    
     button0.innerText = "Odin-todo";
     button1.innerText = "All Task";
     button2.innerText = "Completed Task";
+    button4.innerText = "New Project";
+    
     navstart.appendChild(button0);
+    navmiddle.appendChild(button3);
     navend.appendChild(button1);
     navend.appendChild(button2);
+    navend.appendChild(button4);
     nav.appendChild(navstart);
+    nav.appendChild(navmiddle);
     nav.appendChild(navend);
     document.querySelector("body").appendChild(nav);
 

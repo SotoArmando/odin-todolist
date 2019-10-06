@@ -16,3 +16,7 @@ nav > start {
 nav > end {
   display: flex;
 }
+
+nav > middle {
+  display: flex;
+}
