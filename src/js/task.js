@@ -1,12 +1,12 @@
 import { renderTask, renderTodo } from './dom';
 
-const Todo = (id, { title, tasks, description, isDone = false, isPriority = false, date }) => {
+const Todo = (id, { title, tasks, description, IsDone, isPriority, date }) => {
 
   const proto = {
     title: title || 'No title',
     description: description || 'No Description',
-    isDone,
-    isPriority,
+    IsDone: IsDone || false,
+    isPriority: isPriority || false,
     date,
     tasks: (tasks) ? tasks.map((task, index) => Task(`${id}-${index}`, task)) : [],
     id,
@@ -14,7 +14,7 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
   }
 
   const getTaskId = () => proto.tasks.length
-  const toggleDone = () => { proto.isDone = !proto.isDone; }
+  const toggleDone = () => { proto.IsDone = !proto.IsDone; }
   const togglePriority = () => { proto.isPriority = !proto.isPriority; }
   const addTask = (task) => { proto.tasks.push(task); }
   const maptoHTML = () => renderTodo(proto)
@@ -22,15 +22,15 @@ const Todo = (id, { title, tasks, description, isDone = false, isPriority = fals
   return { toggleDone, togglePriority, addTask, getTaskId, maptoHTML };
 };
 
-const Task = (id = new Date().toISOString(), { title = 'no title', description = 'no description', isDone = false }) => {
+const Task = (id = new Date().toISOString(), { title = 'no title', description = 'no description', IsDone = false }) => {
   const proto = {
     title: title || 'No Title',
     description: description || 'No Description',
-    isDone,
+    IsDone,
     id,
     type: 'Task',
   }
-  const toggleDone = () => { proto.isDone = !proto.isDone; }
+  const toggleDone = () => { proto.IsDone = !proto.IsDone; }
   const maptoHTML = () => renderTask(proto);
   return { toggleDone, maptoHTML }
 }

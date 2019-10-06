@@ -43,7 +43,7 @@ const buildLayout = (proto) => {
 
     boxinput0.setAttribute("name", "title");
     boxinput1.setAttribute("name", "description");
-    boxinput2.setAttribute("name", "isDone");
+    boxinput2.setAttribute("name", "IsDone");
     boxinput2.setAttribute("type", "checkbox");
     boxinput3.setAttribute("name", "isPriority");
     boxinput3.setAttribute("type", "checkbox");
@@ -75,7 +75,7 @@ const buildLayout = (proto) => {
 
     boxinput0.setAttribute("name", "title");
     boxinput1.setAttribute("name", "description");
-    boxinput2.setAttribute("name", "isDone");
+    boxinput2.setAttribute("name", "IsDone");
     boxinput2.setAttribute("type", "checkbox");
     boxinput3.setAttribute("name", "isPriority");
     boxinput3.setAttribute("type", "checkbox");
@@ -102,12 +102,12 @@ const buildLayout = (proto) => {
 }
 
 const renderTodo = (proto) => {
-
+    debugger;
 
 
     //   <box>
     //     <box-head>
-    //         ${proto.title} ${proto.isDone} ${proto.isPriority}
+    //         ${proto.title} ${proto.IsDone} ${proto.isPriority}
     //     </box-head>
     //     <box-body>
     //         <start data-id="${proto.id}">
@@ -127,7 +127,7 @@ const renderTodo = (proto) => {
 
     let box = document.createElement("box");
     let boxhead = document.createElement("box-head");
-    boxhead.innerText = `${proto.title} ${proto.isDone} ${proto.isPriority}`
+    boxhead.innerText = `${proto.title} ${proto.IsDone} ${proto.isPriority}`
 
     let boxbody = document.createElement("box-body");
     let boxbodystart = document.createElement("start");
@@ -157,7 +157,7 @@ const renderTodo = (proto) => {
     }
 
     boxbody.appendChild(boxbodystart)
-    button0.innerText = "complete";
+    button0.innerText = proto.IsDone ? "Completed" : "Complete";
     button0.setAttribute("data-tone", "complete-todo")
     button0.setAttribute("data-id", proto.id)
 
@@ -188,7 +188,7 @@ const renderTask = (proto) => {
     //   <box-task>
     //     <start data-id="${proto.id}">${proto.description}</start>
     //     <end>
-    //       <button>${isDone ? 'Completed' : 'complete'}</button>
+    //       <button>${IsDone ? 'Completed' : 'complete'}</button>
     //       <button data-id="${proto.id}">collapse</button>
     //       <button>delete</button>
     //     </end>
@@ -201,8 +201,11 @@ const renderTask = (proto) => {
     let end = document.createElement("end")
     let button0 = document.createElement("button")
     button0.setAttribute("data-tone", "complete-task")
-    button0.setAttribute("data-id", proto.id)
-    button0.innerText = proto.isDone ? 'Completed' : 'complete'
+    button0.setAttribute("data-id", proto.id);
+    
+    debugger;
+    
+    button0.innerText = proto.IsDone ? 'Completed' : 'Complete'
 
     let button1 = document.createElement("button")
     button1.setAttribute("data-tone", "collapse-task")
@@ -251,7 +254,7 @@ const render = (data) => {
     } 
 
     if (result.length > 0) {
-        result.reduce((itemp, itemc, index, res) => wrapperstart.appendChild(itemc));
+        result.forEach((value) => wrapperstart.appendChild(value))
     }
 
     let addTodobutton = document.createElement("button");
@@ -270,6 +273,11 @@ const render = (data) => {
 
     document.querySelectorAll("box-body > end > button[data-tone='complete-todo']").forEach(button => {
         button.addEventListener("click", function () {
+            this.innerText = this.innerText ===  "Complete" ? "Completed" : "Complete" ;
+            let data = datastorage.getStorage([])[this.dataset.id];
+            debugger;
+            data.IsDone = !data.IsDone;
+            datastorage.updateTodo(this.dataset.id,data);
             console.log(this.dataset.id)
         });
     })
@@ -298,7 +306,11 @@ const render = (data) => {
 
     document.querySelectorAll("box-task > end > button[data-tone='complete-task']").forEach(button => {
         button.addEventListener("click", function () {
-            this.innerText = this.innerText ===  "complete" ? "Completed" : "complete" ;
+            this.innerText = this.innerText ===  "Complete" ? "Completed" : "Complete" ;
+            const { 0: todoId, 1: taskId } = this.dataset.id.split("-");
+            let data = datastorage.getStorage([])[todoId].tasks[taskId];
+            data.IsDone = !data.IsDone;
+            datastorage.updateTask(this.dataset.id,data);
             console.log(this.dataset.id)
         });
     })

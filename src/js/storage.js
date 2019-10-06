@@ -38,11 +38,24 @@ const diststorage = () => {
     console.log(id)
     setStorage(nextState);
   }
-
+  const updateTodo = (id,Todo) => {
+    let nextState = getStorage([]);
+    console.log(nextState)
+    nextState[id] = Todo;
+    console.log(id)
+    setStorage(nextState);
+  }
   const removeTask = (id) => {
     const { 0: todoId, 1: taskId } = id.split("-");
     let nextState = getStorage([]);
     nextState[todoId].tasks.splice(taskId - 1, 1);
+    setStorage(nextState);
+  }
+
+  const updateTask = (id, Task) => {
+    const { 0: todoId, 1: taskId } = id.split("-");
+    let nextState = getStorage([]);
+    nextState[todoId].tasks[taskId] = Task;
     setStorage(nextState);
   }
 
@@ -71,12 +84,12 @@ const diststorage = () => {
       setStorage(newData);
     } else if (localStorage.getItem('Todos')) {
       newData = JSON.parse(localStorage.getItem('Todos'));
-      newData = newData.hasOwnProperty('length') ?  newData : [newData]
+      newData = newData.hasOwnProperty('length') ? newData : [newData]
     }
     return newData;
   };
 
-  return { getStorage, setStorage, removeTask, removeTodo, addTask, addTodo };
+  return { getStorage, setStorage, removeTask, updateTask, removeTodo, addTask, addTodo, updateTodo };
 };
 
 
