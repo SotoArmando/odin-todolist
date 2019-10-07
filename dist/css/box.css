@@ -2,10 +2,10 @@ box {
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   background-color: white;
   padding: 0.6rem 2.5rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, .10);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.10);
 }
 
 box>box-head {
@@ -97,7 +97,7 @@ ux-body>box {
   right: 5rem;
   padding: .5rem .6rem;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, .15) 1px 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
 
 ux-body>box-todo {
@@ -108,7 +108,7 @@ ux-body>box-todo {
   right: 5rem;
   padding: .5rem .6rem;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, .15) 1px 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
 
 ux-body>box-newproject {
@@ -119,5 +119,5 @@ ux-body>box-newproject {
   right: 5rem;
   padding: .5rem .6rem;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, .15) 1px 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
