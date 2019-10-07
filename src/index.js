@@ -12,7 +12,7 @@ render(datastorage.getStorage([]));
 
 document.querySelector("box-todo > button:first-of-type").addEventListener("click", () => {
     console.log("add todo :D.")
-    datastorage.addTodo();
+    datastorage.addTodo(document.querySelector("nav select").value);
 });
 
 document.querySelector("box-todo > button:last-of-type").addEventListener("click", () => {
@@ -21,7 +21,7 @@ document.querySelector("box-todo > button:last-of-type").addEventListener("click
 
 document.querySelector("box > button:first-of-type").addEventListener("click", () => {
     console.log("add todo :D.")
-    datastorage.addTask();
+    datastorage.addTask(document.querySelector("nav select").value);
 });
 document.querySelector("box > button:last-of-type").addEventListener("click", () => {
     //close window

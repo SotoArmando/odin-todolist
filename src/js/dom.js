@@ -177,8 +177,8 @@ const renderTodo = (proto) => {
     box.appendChild(boxhead)
 
     if (tasks.length > 0) {
-        tasks.reduce((pvalue, cvalue, index, r) => {
-            boxbodystart.appendChild(cvalue)
+        tasks.forEach((value) => {
+            boxbodystart.appendChild(value)
         });
     }
 
@@ -260,7 +260,7 @@ const render = (data) => {
 
     const datastorage = diststorage();
 
-    datastorage.setStorage(data,document.querySelector("nav select").value);
+    datastorage.setStorage(data, document.querySelector("nav select").value);
 
     let content = document.querySelector("#content");
     content.innerHTML = "";
@@ -356,7 +356,7 @@ const render = (data) => {
     })
 
     document.querySelector("nav select").addEventListener("change", function () {
-         datastorage.switchProject(this.value)
+        datastorage.switchProject(this.value)
     })
 
 
