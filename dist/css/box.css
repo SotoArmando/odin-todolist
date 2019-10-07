@@ -114,3 +114,13 @@ ux-body>box-todo {
   box-shadow: rgba(0, 0, 0, .15) 1px 1px 3px;
 }
 
+ux-body>box-newproject {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  bottom: 10rem;
+  right: 5rem;
+  padding: .5rem .6rem;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, .15) 1px 1px 3px;
+}

@@ -22,16 +22,16 @@ const buildLayout = (proto) => {
     let option3 = document.createElement("option");
 
     option0.innerText = "Default Project";
-    option1.innerText = "Project One";
+    
 
 
     option0.value = "Todos"
-    option1.value = "Project One"
+    
 
 
 
-    button3.appendChild(option0);
-    button3.appendChild(option1);
+    // button3.appendChild(option0);
+    
 
 
     button0.innerText = "Odin-todo";
@@ -87,10 +87,11 @@ const buildLayout = (proto) => {
     
     let box = document.createElement("box");
     let boxtodo = document.createElement("box-todo");
+    let boxnewproject = document.createElement("box-newproject");
     let boxtitle = document.createElement("title");
     boxtitle.innerText = "Add New Task"
     let boxform = document.createElement("form");
-    boxform.setAttribute("id","task-form");
+    boxform.setAttribute("id","todo-form");
     let boxinput0 = document.createElement("input");
     let boxinput1 = document.createElement("input");
     let boxinput2 = document.createElement("input");
@@ -101,7 +102,7 @@ const buildLayout = (proto) => {
     let boxbutton1 = document.createElement("button");
 
     boxbutton0.innerText = "Post"
-    boxbutton1.innerText = "Reset"
+    boxbutton1.innerText = "Close"
 
     boxinput0.setAttribute("name", "title");
     boxinput0.setAttribute("placeholder", "Title");
@@ -154,7 +155,7 @@ const buildLayout = (proto) => {
     
 
     boxtodobutton0.innerText = "Post"
-    boxtodobutton1.innerText = "Reset"
+    boxtodobutton1.innerText = "Close"
 
     boxtodoinput0.setAttribute("name", "title");
     boxtodoinput0.setAttribute("placeholder", "Title");
@@ -182,15 +183,37 @@ const buildLayout = (proto) => {
     boxtodoform.appendChild(boxtodoinput3)
     boxtodoform.appendChild(boxtodoinput4)
     
-
-
     boxtodo.appendChild(boxtodotitle);
     boxtodo.appendChild(boxtodoform);
     boxtodo.appendChild(boxtodobutton0);
     boxtodo.appendChild(boxtodobutton1);
 
+
+    let boxnewprojecttitle = document.createElement("title");
+    boxnewprojecttitle.innerText = "Add New Project"
+    let boxnewprojectform = document.createElement("form");
+    boxnewprojectform.setAttribute("id","newproject-form");
+
+    let boxnewprojectbutton0 = document.createElement("button");
+    let boxnewprojectbutton1 = document.createElement("button");
+
+    boxnewprojectbutton0.innerText = "Post"
+    boxnewprojectbutton1.innerText = "Close"
+
+    let boxnewprojectinput0 = document.createElement("input");
+
+    boxnewprojectinput0.setAttribute("name", "title");
+    boxnewprojectinput0.setAttribute("placeholder", "Title");
+
+
+    boxnewprojectform.appendChild(boxnewprojectinput0)
+    boxnewproject.appendChild(boxnewprojectform)
+    boxnewproject.appendChild(boxnewprojectbutton0)
+    boxnewproject.appendChild(boxnewprojectbutton1)
+
     uxbody.appendChild(box);
     uxbody.appendChild(boxtodo);
+    uxbody.appendChild(boxnewproject);
 
     document.querySelector("body").appendChild(uxbody);
 }
@@ -381,7 +404,6 @@ const render = (data) => {
         button.addEventListener("click", function () {
             datastorage.removeTodo(this.dataset.id, document.querySelector("nav select").value);
             this.parentNode.parentNode.parentNode.remove();
-
         });
     })
 

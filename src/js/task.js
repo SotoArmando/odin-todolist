@@ -35,8 +35,14 @@ const Task = (id = new Date().toISOString(), { title = 'no title', description =
   return { toggleDone, maptoHTML }
 }
 
+const Project = ({ title }) => {
+  const proto = {
+    title: title || 'No Title'
+  }
+  const maptoHTML = () => renderTask(proto);
+}
 
-export { Todo, Task };
+export { Todo, Task, Project };
 
 
 

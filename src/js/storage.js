@@ -1,6 +1,6 @@
 import { render } from './dom';
 import { getFocused } from './views';
-
+import { Project } from './task';
 
 function storageAvailable(type = 'localStorage') {
   let storage;
@@ -31,74 +31,117 @@ function storageAvailable(type = 'localStorage') {
 
 const diststorage = () => {
 
-  const removeTodo = (id,project) => {
-    let nextState = getStorage([],project);
+  const removeTodo = (id, project) => {
+    let nextState = getStorage([], project);
     console.log(nextState)
     nextState.splice(id - 1, 1);
     console.log(id)
-    setStorage(nextState,project);
+    setStorage(nextState, project);
   }
-  const updateTodo = (id,Todo,project) => {
-    let nextState = getStorage([],project);
+  const updateTodo = (id, Todo, project) => {
+    let nextState = getStorage([], project);
     console.log(nextState)
     nextState[id] = Todo;
     console.log(id)
-    setStorage(nextState,project);
+    setStorage(nextState, project);
   }
-  const removeTask = (id,project) => {
+  const removeTask = (id, project) => {
     const { 0: todoId, 1: taskId } = id.split("-");
-    let nextState = getStorage([],project);
+    let nextState = getStorage([], project);
     nextState[todoId].tasks.splice(taskId - 1, 1);
-    setStorage(nextState,project);
+    setStorage(nextState, project);
   }
 
-  const updateTask = (id, Task,project) => {
+  const updateTask = (id, Task, project) => {
     const { 0: todoId, 1: taskId } = id.split("-");
-    let nextState = getStorage([],project);
+    let nextState = getStorage([], project);
     nextState[todoId].tasks[taskId] = Task;
-    setStorage(nextState,project);
+    setStorage(nextState, project);
   }
 
   const addTask = (project) => {
     let form = document.querySelector("#task-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {})
-    let datastorage = [...getStorage([],project)];
+    let datastorage = [...getStorage([], project)];
     datastorage[getFocused()].tasks.push(data);
-    render(datastorage,project);
+    render(datastorage, project);
   }
 
   const addTodo = (project) => {
     let form = document.querySelector("#todo-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
     data["tasks"] = [];
-    let datastorage = [...getStorage([],project)];
+    let datastorage = [...getStorage([], project)];
     console.log(data);
     datastorage.push(data);
-    render(datastorage,project);
+    render(datastorage, project);
   }
 
   const switchProject = (project) => {
-    let theproject = project || "Todos"; 
+    let theproject = project || "Todos";
     console.log(theproject)
-    let datastorage = [...getStorage([],theproject)];
+    let datastorage = [...getStorage([], theproject)];
     console.log(datastorage)
-    
+
     render(datastorage);
   }
+  const newProject = () => { 
+    debugger;
+    let form = document.querySelector("#newproject-form");
+    let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
+    let projects = [data.title,...[...document.querySelector("select").childNodes].map((value) => value.innerText )]
+    projects = projects.map((value) => {return {title : value} });
+    
+    let select = document.querySelector("select");
+    let newoption = document.createElement("option");
+    newoption.setAttribute("value",data.title)
+    newoption.innerText = data.title;
+    select.appendChild(newoption)
+    // localStorage.setItem("Projects", []);
+    setStorage(projects,"Projects");
 
-  const setStorage = (data,project) => localStorage.setItem(project || "Todos", JSON.stringify(data));
-  const getStorage = (data,project) => {
+    document.querySelector("select").selectedIndex = document.querySelector("select").childNodes.length - 1;
+    switchProject(document.querySelector("nav select").value);
+  }
+
+  const loadProjects = () => {
+    debugger;
+    let projects  = getStorage([],"Projects")
+    let select = document.querySelector("select");
+
+    debugger;
+
+    if (projects.length < 1) {
+      projects.push({ title: "Default Project" })
+    }
+
+    projects.forEach(element => {
+      
+      let option = document.createElement("option");
+      option.innerText = element.title;
+      select.appendChild(option);
+    });
+    
+  }
+
+  const setStorage = (data, project) => localStorage.setItem(project || "Default Project", JSON.stringify(data));
+  const getStorage = (data, project) => {
     let newData = data;
     if (newData.length) {
       setStorage(newData);
-    } else if (localStorage.getItem(project || 'Todos')) {
-      newData = JSON.parse(localStorage.getItem(project || 'Todos'));
+    } else if (localStorage.getItem(project || 'Default Project')) {
+      debugger;
+      try {
+        newData = JSON.parse(localStorage.getItem(project || 'Default Project'));
+      // } catch { newData = JSON.parse("["+localStorage.getItem(project || 'Default Project')+"]") }
+      } catch { newData = [] }
+      
       newData = newData.hasOwnProperty('length') ? newData : [newData]
     }
     return newData;
   };
 
-  return { getStorage, setStorage, removeTask, updateTask, removeTodo, addTask, addTodo, updateTodo, switchProject };
+  return { getStorage, setStorage, removeTask, updateTask, removeTodo, addTask, addTodo, updateTodo, switchProject, newProject, loadProjects };
 };
 
 
