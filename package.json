@@ -8,8 +8,8 @@
     "watch": "webpack --mode development --watch",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
-    
+    "start": "webpack-dev-server --mode development --open",
+    "fixlint": "eslint-auto-fix "
   },
   "eslintConfig": {
     "jest": {
@@ -20,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.4.0",
+    "eslint-auto-fix": "^1.0.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

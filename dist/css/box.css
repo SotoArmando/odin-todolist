@@ -5,7 +5,7 @@ box {
   border-radius: 0.25rem;
   background-color: white;
   padding: 0.6rem 2.5rem;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.10);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 box>box-head {
@@ -63,7 +63,7 @@ box>box-body>end {
 box-task>start, box-task>end {
   display: flex;
   flex-direction: row;
-  align-self: start;
+  align-self: flex-start;
 }
 
 box-task {
@@ -95,7 +95,7 @@ ux-body>box {
   flex-direction: column;
   bottom: 10rem;
   right: 5rem;
-  padding: .5rem .6rem;
+  padding: 0.5rem 0.6rem;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
@@ -106,7 +106,7 @@ ux-body>box-todo {
   flex-direction: column;
   bottom: 10rem;
   right: 5rem;
-  padding: .5rem .6rem;
+  padding: 0.5rem 0.6rem;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
@@ -117,7 +117,7 @@ ux-body>box-newproject {
   flex-direction: column;
   bottom: 10rem;
   right: 5rem;
-  padding: .5rem .6rem;
+  padding: 0.5rem 0.6rem;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 3px;
 }
