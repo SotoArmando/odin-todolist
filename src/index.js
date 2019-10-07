@@ -16,14 +16,14 @@ document.querySelector("box-todo > button:first-of-type").addEventListener("clic
 });
 
 document.querySelector("box-todo > button:last-of-type").addEventListener("click", () => {
-    //close window
+    document.querySelector("ux-body > box-todo").classList.toggle("visible")
 });
 
-document.querySelector("box > button:first-of-type").addEventListener("click", () => {
+document.querySelector("ux-body box > button:first-of-type").addEventListener("click", () => {
     console.log("add todo :D.")
     datastorage.addTask(document.querySelector("nav select").value);
 });
-document.querySelector("box > button:last-of-type").addEventListener("click", () => {
-    //close window
+document.querySelector("ux-body box > button:last-of-type").addEventListener("click", () => {
+    document.querySelector("ux-body > box").classList.toggle("visible")
 });
 

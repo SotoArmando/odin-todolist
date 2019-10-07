@@ -53,11 +53,44 @@ const buildLayout = (proto) => {
     wrapper.id = "content";
     document.querySelector("body").appendChild(wrapper);
 
+
+
+    // <ux-body>
+    //     <box>
+    //         <form id="task-form">
+    //             <title>Add New Task</title>
+    //             <input name="title" placeholder="Title" />
+    //             <input name="description" placeholder="Description" />
+    //             <label>IsDone<input name="IsDone" type="checkbox" placeholder="IsDone" /></label>
+    //             <label>IsPriority<input name="isPriority" type="checkbox" placeholder="IsPriority" /></label>
+    //             <input name="date" placeholder="Date" />
+    //         </form>
+
+    //         <button>confirm</button>
+    //         <button>cancel</button>
+    //     </box>
+    //     <box-todo>
+    //         <title>Add New To-do</title>
+    //         <form id="todo-form">
+    //             <input name="title" placeholder="Title" />
+    //             <input name="description" placeholder="Description" />
+    //             <label>IsDone<input name="IsDone" type="checkbox" placeholder="IsDone" /></label>
+    //             <label>IsPriority<input name="IsPriority" type="checkbox" placeholder="IsPriority" /></label>
+    //             <input name="Date" placeholder="Date" type="date" />
+    //         </form>
+    //         <button>confirm</button>
+    //         <button>cancel</button>
+    //     </box-todo>
+    // </ux-body>
+
     let uxbody = document.createElement("ux-body");
+    
     let box = document.createElement("box");
     let boxtodo = document.createElement("box-todo");
     let boxtitle = document.createElement("title");
+    boxtitle.innerText = "Add New Task"
     let boxform = document.createElement("form");
+    boxform.setAttribute("id","task-form");
     let boxinput0 = document.createElement("input");
     let boxinput1 = document.createElement("input");
     let boxinput2 = document.createElement("input");
@@ -67,29 +100,48 @@ const buildLayout = (proto) => {
     let boxbutton0 = document.createElement("button");
     let boxbutton1 = document.createElement("button");
 
+    boxbutton0.innerText = "Post"
+    boxbutton1.innerText = "Reset"
+
     boxinput0.setAttribute("name", "title");
+    boxinput0.setAttribute("placeholder", "Title");
     boxinput1.setAttribute("name", "description");
+    boxinput1.setAttribute("placeholder", "Description");
     boxinput2.setAttribute("name", "IsDone");
     boxinput2.setAttribute("type", "checkbox");
     boxinput3.setAttribute("name", "isPriority");
     boxinput3.setAttribute("type", "checkbox");
     boxinput4.setAttribute("name", "date");
+    boxinput4.setAttribute("type", "date");
+    boxinput4.setAttribute("placeholder", "Date");
     boxinput5.setAttribute("name", "btn_id");
+
+    let label0 = document.createElement("label");
+    let label1 = document.createElement("label");
+
+    label0.innerText = "IsDone"
+    label1.innerText = "IsPrority"
 
     boxform.appendChild(boxinput0)
     boxform.appendChild(boxinput1)
+    boxform.appendChild(label0)
     boxform.appendChild(boxinput2)
+    boxform.appendChild(label1)
     boxform.appendChild(boxinput3)
     boxform.appendChild(boxinput4)
-    boxform.appendChild(boxinput5)
+    
+
 
     box.appendChild(boxtitle)
     box.appendChild(boxform)
-    boxtodo.appendChild(boxbutton0);
-    boxtodo.appendChild(boxbutton1);
+    box.appendChild(boxbutton0)
+    box.appendChild(boxbutton1)
+
 
     let boxtodotitle = document.createElement("title");
+    boxtodotitle.innerText = "Add New Todo"
     let boxtodoform = document.createElement("form");
+    boxtodoform.setAttribute("id","todo-form");
     let boxtodoinput0 = document.createElement("input");
     let boxtodoinput1 = document.createElement("input");
     let boxtodoinput2 = document.createElement("input");
@@ -97,23 +149,39 @@ const buildLayout = (proto) => {
     let boxtodoinput4 = document.createElement("input");
     let boxtodoinput5 = document.createElement("input");
     let boxtodobutton0 = document.createElement("button");
+    
     let boxtodobutton1 = document.createElement("button");
+    
 
-    boxinput0.setAttribute("name", "title");
-    boxinput1.setAttribute("name", "description");
-    boxinput2.setAttribute("name", "IsDone");
-    boxinput2.setAttribute("type", "checkbox");
-    boxinput3.setAttribute("name", "isPriority");
-    boxinput3.setAttribute("type", "checkbox");
-    boxinput4.setAttribute("name", "date");
-    boxinput5.setAttribute("name", "btn_id");
+    boxtodobutton0.innerText = "Post"
+    boxtodobutton1.innerText = "Reset"
+
+    boxtodoinput0.setAttribute("name", "title");
+    boxtodoinput0.setAttribute("placeholder", "Title");
+    boxtodoinput1.setAttribute("name", "description");
+    boxtodoinput1.setAttribute("placeholder", "Description");
+    boxtodoinput2.setAttribute("name", "IsDone");
+    boxtodoinput2.setAttribute("type", "checkbox");
+    boxtodoinput3.setAttribute("name", "isPriority");
+    boxtodoinput3.setAttribute("type", "checkbox");
+    boxtodoinput4.setAttribute("name", "date");
+    boxtodoinput4.setAttribute("type", "date");
+    boxtodoinput5.setAttribute("name", "btn_id");
+
+    let label2 = document.createElement("label");
+    let label3 = document.createElement("label");
+
+    label2.innerText = "IsDone"
+    label3.innerText = "IsPrority"
 
     boxtodoform.appendChild(boxtodoinput0)
     boxtodoform.appendChild(boxtodoinput1)
+    boxtodoform.appendChild(label2)
     boxtodoform.appendChild(boxtodoinput2)
+    boxtodoform.appendChild(label3)
     boxtodoform.appendChild(boxtodoinput3)
     boxtodoform.appendChild(boxtodoinput4)
-    boxtodoform.appendChild(boxtodoinput5)
+    
 
 
     boxtodo.appendChild(boxtodotitle);
@@ -153,7 +221,8 @@ const renderTodo = (proto) => {
 
     let box = document.createElement("box");
     let boxhead = document.createElement("box-head");
-    boxhead.innerText = `${proto.title} ${proto.IsDone} ${proto.isPriority}`
+    // boxhead.innerText = `${proto.title} ${proto.IsDone} ${proto.isPriority}`
+    boxhead.innerText = `${proto.title}`
 
     let boxbody = document.createElement("box-body");
     let boxbodystart = document.createElement("start");
