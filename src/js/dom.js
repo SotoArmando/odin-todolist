@@ -22,21 +22,10 @@ const buildLayout = (proto) => {
     let option3 = document.createElement("option");
 
     option0.innerText = "Default Project";
-    
-
 
     option0.value = "Todos"
-    
-
-
-
-    // button3.appendChild(option0);
-    
-
 
     button0.innerText = "Odin-todo";
-    button1.innerText = "All Task";
-    button2.innerText = "Completed Task";
     button4.innerText = "New Project";
 
     navstart.appendChild(button0);
@@ -53,45 +42,15 @@ const buildLayout = (proto) => {
     wrapper.id = "content";
     document.querySelector("body").appendChild(wrapper);
 
-
-
-    // <ux-body>
-    //     <box>
-    //         <form id="task-form">
-    //             <title>Add New Task</title>
-    //             <input name="title" placeholder="Title" />
-    //             <input name="description" placeholder="Description" />
-    //             <label>IsDone<input name="IsDone" type="checkbox" placeholder="IsDone" /></label>
-    //             <label>IsPriority<input name="isPriority" type="checkbox" placeholder="IsPriority" /></label>
-    //             <input name="date" placeholder="Date" />
-    //         </form>
-
-    //         <button>confirm</button>
-    //         <button>cancel</button>
-    //     </box>
-    //     <box-todo>
-    //         <title>Add New To-do</title>
-    //         <form id="todo-form">
-    //             <input name="title" placeholder="Title" />
-    //             <input name="description" placeholder="Description" />
-    //             <label>IsDone<input name="IsDone" type="checkbox" placeholder="IsDone" /></label>
-    //             <label>IsPriority<input name="IsPriority" type="checkbox" placeholder="IsPriority" /></label>
-    //             <input name="Date" placeholder="Date" type="date" />
-    //         </form>
-    //         <button>confirm</button>
-    //         <button>cancel</button>
-    //     </box-todo>
-    // </ux-body>
-
     let uxbody = document.createElement("ux-body");
-    
+
     let box = document.createElement("box");
     let boxtodo = document.createElement("box-todo");
     let boxnewproject = document.createElement("box-newproject");
     let boxtitle = document.createElement("title");
     boxtitle.innerText = "Add New Task"
     let boxform = document.createElement("form");
-    boxform.setAttribute("id","todo-form");
+    boxform.setAttribute("id", "todo-form");
     let boxinput0 = document.createElement("input");
     let boxinput1 = document.createElement("input");
     let boxinput2 = document.createElement("input");
@@ -130,7 +89,7 @@ const buildLayout = (proto) => {
     boxform.appendChild(label1)
     boxform.appendChild(boxinput3)
     boxform.appendChild(boxinput4)
-    
+
 
 
     box.appendChild(boxtitle)
@@ -142,7 +101,7 @@ const buildLayout = (proto) => {
     let boxtodotitle = document.createElement("title");
     boxtodotitle.innerText = "Add New Todo"
     let boxtodoform = document.createElement("form");
-    boxtodoform.setAttribute("id","todo-form");
+    boxtodoform.setAttribute("id", "todo-form");
     let boxtodoinput0 = document.createElement("input");
     let boxtodoinput1 = document.createElement("input");
     let boxtodoinput2 = document.createElement("input");
@@ -150,9 +109,9 @@ const buildLayout = (proto) => {
     let boxtodoinput4 = document.createElement("input");
     let boxtodoinput5 = document.createElement("input");
     let boxtodobutton0 = document.createElement("button");
-    
+
     let boxtodobutton1 = document.createElement("button");
-    
+
 
     boxtodobutton0.innerText = "Post"
     boxtodobutton1.innerText = "Close"
@@ -182,7 +141,7 @@ const buildLayout = (proto) => {
     boxtodoform.appendChild(label3)
     boxtodoform.appendChild(boxtodoinput3)
     boxtodoform.appendChild(boxtodoinput4)
-    
+
     boxtodo.appendChild(boxtodotitle);
     boxtodo.appendChild(boxtodoform);
     boxtodo.appendChild(boxtodobutton0);
@@ -192,7 +151,7 @@ const buildLayout = (proto) => {
     let boxnewprojecttitle = document.createElement("title");
     boxnewprojecttitle.innerText = "Add New Project"
     let boxnewprojectform = document.createElement("form");
-    boxnewprojectform.setAttribute("id","newproject-form");
+    boxnewprojectform.setAttribute("id", "newproject-form");
 
     let boxnewprojectbutton0 = document.createElement("button");
     let boxnewprojectbutton1 = document.createElement("button");
@@ -222,36 +181,17 @@ const renderTodo = (proto) => {
     debugger;
 
 
-    //   <box>
-    //     <box-head>
-    //         ${proto.title} ${proto.IsDone} ${proto.isPriority}
-    //     </box-head>
-    //     <box-body>
-    //         <start data-id="${proto.id}">
-    //           ${proto.description}
-    //         </start>
-    //         <end>
-    //             <button>complete</button>
-    //             <button data-id="${proto.id}" >collapse</button>
-    //             <button>delete</button>
-    //         </end>
-    //     </box-body>
-    //     <box-foot>
-    //         ${proto.tasks.map(task => task.maptoHTML()).join("")}
-    //         <button data-id='${proto.id}' onclick='document.querySelector("ux-body > box").classList.toggle("visible")'>Add Task</button>
-    //     </box-foot>
-    //   </box>
 
     let box = document.createElement("box");
     let boxhead = document.createElement("box-head");
-    // boxhead.innerText = `${proto.title} ${proto.IsDone} ${proto.isPriority}`
+
     boxhead.innerText = `${proto.title}`
 
     let boxbody = document.createElement("box-body");
     let boxbodystart = document.createElement("start");
     let span = document.createElement("span");
     span.innerText = proto.description;
-    console.log("proto.description", proto.description)
+
     boxbodystart.appendChild(span);
     boxbodystart.setAttribute("data-id", proto.id);
 
@@ -300,17 +240,6 @@ const renderTodo = (proto) => {
 }
 
 const renderTask = (proto) => {
-
-
-
-    //   <box-task>
-    //     <start data-id="${proto.id}">${proto.description}</start>
-    //     <end>
-    //       <button>${IsDone ? 'Completed' : 'complete'}</button>
-    //       <button data-id="${proto.id}">collapse</button>
-    //       <button>delete</button>
-    //     </end>
-    //   </box-task>
 
     let boxtask = document.createElement("box-task")
     let start = document.createElement("start")
@@ -396,7 +325,7 @@ const render = (data) => {
             debugger;
             data.IsDone = !data.IsDone;
             datastorage.updateTodo(this.dataset.id, data, document.querySelector("nav select").value);
-            console.log(this.dataset.id)
+
         });
     })
 
@@ -428,21 +357,21 @@ const render = (data) => {
             let data = datastorage.getStorage([])[todoId].tasks[taskId];
             data.IsDone = !data.IsDone;
             datastorage.updateTask(this.dataset.id, data, document.querySelector("nav select").value);
-            console.log(this.dataset.id)
+
         });
     })
 
     document.querySelectorAll("box-foot > button[data-id]").forEach(button => {
         button.addEventListener("click", function () {
             setFocused(this.dataset.id);
-            console.log("focused " + this.dataset.id)
+
         });
     })
 
     document.querySelectorAll("box-body > button[data-id]").forEach(button => {
         button.addEventListener("click", function () {
             setFocused(this.dataset.id);
-            console.log("focused " + this.dataset.id)
+
         });
     })
 

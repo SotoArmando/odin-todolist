@@ -33,16 +33,16 @@ const diststorage = () => {
 
   const removeTodo = (id, project) => {
     let nextState = getStorage([], project);
-    console.log(nextState)
+
     nextState.splice(id - 1, 1);
-    console.log(id)
+
     setStorage(nextState, project);
   }
   const updateTodo = (id, Todo, project) => {
     let nextState = getStorage([], project);
-    console.log(nextState)
+
     nextState[id] = Todo;
-    console.log(id)
+
     setStorage(nextState, project);
   }
   const removeTask = (id, project) => {
@@ -72,33 +72,33 @@ const diststorage = () => {
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
     data["tasks"] = [];
     let datastorage = [...getStorage([], project)];
-    console.log(data);
+
     datastorage.push(data);
     render(datastorage, project);
   }
 
   const switchProject = (project) => {
     let theproject = project || "Todos";
-    console.log(theproject)
+
     let datastorage = [...getStorage([], theproject)];
-    console.log(datastorage)
+
 
     render(datastorage);
   }
-  const newProject = () => { 
+  const newProject = () => {
     debugger;
     let form = document.querySelector("#newproject-form");
     let data = [...form.elements].reduce((map, input) => { (input.type == 'checkbox') ? map[input.name] = input.checked : map[input.name] = input.value; return map }, {});
-    let projects = [data.title,...[...document.querySelector("select").childNodes].map((value) => value.innerText )]
-    projects = projects.map((value) => {return {title : value} });
-    
+    let projects = [data.title, ...[...document.querySelector("select").childNodes].map((value) => value.innerText)]
+    projects = projects.map((value) => { return { title: value } });
+
     let select = document.querySelector("select");
     let newoption = document.createElement("option");
-    newoption.setAttribute("value",data.title)
+    newoption.setAttribute("value", data.title)
     newoption.innerText = data.title;
     select.appendChild(newoption)
-    // localStorage.setItem("Projects", []);
-    setStorage(projects,"Projects");
+
+    setStorage(projects, "Projects");
 
     document.querySelector("select").selectedIndex = document.querySelector("select").childNodes.length - 1;
     switchProject(document.querySelector("nav select").value);
@@ -106,7 +106,7 @@ const diststorage = () => {
 
   const loadProjects = () => {
     debugger;
-    let projects  = getStorage([],"Projects")
+    let projects = getStorage([], "Projects")
     let select = document.querySelector("select");
 
     debugger;
@@ -116,12 +116,12 @@ const diststorage = () => {
     }
 
     projects.forEach(element => {
-      
+
       let option = document.createElement("option");
       option.innerText = element.title;
       select.appendChild(option);
     });
-    
+
   }
 
   const setStorage = (data, project) => localStorage.setItem(project || "Default Project", JSON.stringify(data));
@@ -133,9 +133,9 @@ const diststorage = () => {
       debugger;
       try {
         newData = JSON.parse(localStorage.getItem(project || 'Default Project'));
-      // } catch { newData = JSON.parse("["+localStorage.getItem(project || 'Default Project')+"]") }
+
       } catch { newData = [] }
-      
+
       newData = newData.hasOwnProperty('length') ? newData : [newData]
     }
     return newData;
