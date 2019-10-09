@@ -26,16 +26,16 @@ const formatDate = () => {
     'Saturday',
   ];
 
-  const newDate = (date) => new Date(date);
-  const weekIndex = (date) => newDate(date).getDay();
-  const monthIndex = (date) => newDate(date).getMonth();
-  const dayOfTheWeek = (date) => week[weekIndex(date)];
-  const currentMonth = (date) => month[monthIndex(date)];
-  const currentDate = (date) => newDate(date).getDate();
-  const currentYear = (date) => newDate(date).getFullYear();
+  const newDate = date => new Date(date);
+  const weekIndex = date => newDate(date).getDay();
+  const monthIndex = date => newDate(date).getMonth();
+  const dayOfTheWeek = date => week[weekIndex(date)];
+  const currentMonth = date => month[monthIndex(date)];
+  const currentDate = date => newDate(date).getDate();
+  const currentYear = date => newDate(date).getFullYear();
 
-  const dayDateMonthYear = (date) => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)} ${currentYear(date)}`;
-  const dayDateMonth = (date) => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)}`;
+  const dayDateMonthYear = date => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)} ${currentYear(date)}`;
+  const dayDateMonth = date => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)}`;
 
   const toTime = (date = now) => {
     const hour = newDate(date).getHours();
