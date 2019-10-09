@@ -2,9 +2,11 @@
 
 This is the fourth project of the Main JavaScript curriculum at [Microverse](https://www.microverse.org/) - @microverseinc
 
-The objective is to create a simple todo app by using JavaScript factory function and module pattern with the concepts of Single Responsibility and Tightly Coupled Objects.The features of the page also include:
+The objective is to create a simple todo app by using JavaScript factory function and module pattern with the concepts of Single Responsibility and Tightly Coupled Objects.The features of the app also include:
 
-[COMING SOON]
+- Create, edit and update todos
+- Create project to be associated with todo
+- Delete or mark todo as complete
 
 ### Development
 
@@ -23,7 +25,7 @@ The objective is to create a simple todo app by using JavaScript factory functio
 - Clone the project
 
 ```bash
-git clone https://github.com/bolah2009/js-todo.git
+git clone git@github.com:SotoArmando/odin-todolist.git
 
 ```
 
@@ -38,7 +40,6 @@ npm install
 ```bash
 npm run-script dev
 ```
-
 
 - Run Script (Production mode)
 
@@ -58,8 +59,15 @@ npm run-script start
 
 ### Screenshots
 
-Coming sooon
+|                                                   Todo view for large screen                                                    |                                                   Todo view for large screen                                                    |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| ![todo view large screen](https://user-images.githubusercontent.com/36057474/66500030-cadeec80-eab8-11e9-8d6f-c0edef28b1e4.png) | ![todo view small screen](https://user-images.githubusercontent.com/36057474/66500033-cb778300-eab8-11e9-8b0c-d98842893557.png) |
+|                                                         Add new project                                                         |                                                          Add new todo                                                           |
+|    ![add new project](https://user-images.githubusercontent.com/36057474/66500036-cc101980-eab8-11e9-9e37-57c2039b5d19.png)     |      ![add new todo](https://user-images.githubusercontent.com/36057474/66500037-cc101980-eab8-11e9-8a64-5fc97fed934c.png)      |
+
+|
 
 #### Authors
 
 - [@bolah2009](https://github.com/bolah2009/)
+- [@SotoArmando](https://github.com/SotoArmando/)
