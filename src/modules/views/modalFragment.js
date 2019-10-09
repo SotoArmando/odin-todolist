@@ -3,7 +3,7 @@ import projectModel from '../models/projectModel';
 
 const modal = () => {
   const createProjectDatalist = () => {
-    const createOption = (project) => `<option value="${project}">`;
+    const createOption = project => `<option value="${project}">`;
     const projects = projectModel.store;
     const options = projects.map(createOption).join(' ');
     const datalist = `
