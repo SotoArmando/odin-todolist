@@ -4,7 +4,7 @@ import projectModel from './projectModel';
 const taskModel = () => {
   const taskStore = db('task');
   const getTask = () => taskStore.getData();
-  const deleteTask = (index) => taskStore.delData(index);
+  const deleteTask = index => taskStore.delData(index);
 
   const store = getTask() || [];
 

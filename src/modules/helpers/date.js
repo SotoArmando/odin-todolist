@@ -34,9 +34,7 @@ const formatDate = () => {
   const currentDate = (date) => newDate(date).getDate();
   const currentYear = (date) => newDate(date).getFullYear();
 
-  const dayDateMonthYear = (date) => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(
-    date,
-  )} ${currentYear(date)}`;
+  const dayDateMonthYear = (date) => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)} ${currentYear(date)}`;
   const dayDateMonth = (date) => `${dayOfTheWeek(date)}, ${currentDate(date)} ${currentMonth(date)}`;
 
   const toTime = (date = now) => {
