@@ -1,5 +1,9 @@
 import {
-  toggleNavMenu, toggleProjectMenu, handleDataActions, loadViews,
+  toggleNavMenu,
+  toggleProjectMenu,
+  handleDataActions,
+  loadViews,
+  handleTodoFilters,
 } from './modules/handlers/handlers';
 
 const startApp = () => {
@@ -8,6 +12,7 @@ const startApp = () => {
   toggleProjectMenu('.show-project-nav', '.projects-modal');
 
   document.addEventListener('click', handleDataActions('#content'));
+  document.addEventListener('click', handleTodoFilters);
 };
 
 startApp();

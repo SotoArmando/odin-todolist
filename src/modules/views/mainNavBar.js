@@ -8,22 +8,18 @@ const navBarFragment = () => {
                 <div class="brand-logo">
                 Todo.List
                 </div>
-
                 <ul class="nav-list order-1 d-none d-flex-md jc-fe">
                 <li class="main-nav-list-item">
-                    <button type="button" class="button">
-                    Active Task
-                    </button>
+                    <button data-filter-type="title" data-filter-value="all" type="button" class="button">All Task</button>
+                </li> 
+                <li class="main-nav-list-item">
+                    <button data-filter-type="isNotDue" data-filter-value="future" type="button" class="button">Active Task</button>
                 </li>
                 <li class="main-nav-list-item">
-                    <button type="button" class="button">
-                    All Task
-                    </button>
+                    <button data-filter-type="isDue" data-filter-value="past" type="button" class="button">Due Task</button>
                 </li>
                 <li class="main-nav-list-item">
-                    <button type="button" class="button">
-                    Complete Task
-                    </button>
+                    <button data-filter-type="isDone" data-filter-value="" type="button" class="button">Complete Task</button>
                 </li>
                 </ul>
 

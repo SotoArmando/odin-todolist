@@ -1,7 +1,7 @@
 import projectModel from '../models/projectModel';
 import taskModel from '../models/taskModel';
 import { appendProjectListItem } from '../views/projectsView';
-import { appendTodoListItem, refreshTodoList } from '../views/todoListView';
+import { refreshTodoList, todoListFilter } from '../views/todoListView';
 import navBarFragment from '../views/mainNavBar';
 import mainSectionFragment from '../views/mainView';
 import modal from '../views/modalFragment';
@@ -53,7 +53,7 @@ const eventHandlers = (rootSelector) => {
       return false;
     };
 
-    const addTodoFormDataToStore = (form, list) => {
+    const addTodoFormDataToStore = (form) => {
       let isValid = true;
       const formData = document.querySelectorAll(`${form} .data`);
       const formErrorElement = getElement(`${form} .error`);
@@ -70,9 +70,8 @@ const eventHandlers = (rootSelector) => {
       formData.forEach(getFormData);
       if (isValid) {
         const index = position === undefined ? taskModel().store.length : position;
-        const isNew = index === taskModel().store.length;
         taskModel().setTask(newData, index);
-        appendTodoListItem(list)(newData, index, isNew);
+        refreshTodoList();
       } else { validateForm(formErrorElement, !isValid); }
 
       return isValid;
@@ -80,7 +79,7 @@ const eventHandlers = (rootSelector) => {
 
     const addFormDataToStore = (form, list) => {
       if (modalClass === '.pop-up.todo-modal') {
-        return addTodoFormDataToStore(form, list);
+        return addTodoFormDataToStore(form);
       }
       return addProjectFormDataToStore(form, list);
     };
@@ -254,4 +253,11 @@ export const handleDataActions = (rootSelector) => {
     }
   };
   return dataActionsListerners;
+};
+
+export const handleTodoFilters = ({ target: { dataset: { filterType = '', filterValue = '' } } }) => {
+  if (!filterType && !filterValue) { return; }
+  const newFilter = { type: filterType, value: filterValue };
+  todoListFilter().setFilter(newFilter);
+  refreshTodoList();
 };

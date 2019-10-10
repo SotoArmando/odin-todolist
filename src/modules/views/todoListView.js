@@ -43,7 +43,9 @@ const todoListItemFragment = (todo, index) => {
                     </svg>
                 </div>
                 </div>
-                <p class="todo-due-date">Due <time datetime="${todo.dueDate}">${dueDate}</time></p>
+                <p class="todo-due-date">Due <time datetime="${
+  todo.dueDate
+}">${dueDate}</time></p>
                 <div class="todo-control-panel d-flex jc-sb wrap">
                 <button data-action="show-details" data-id="${index}" title="Show Details" class="button">Show Details</button>
                 <button data-action="edit-todo" data-id="${index}" title="Edit Todo" class="button">
@@ -54,7 +56,9 @@ const todoListItemFragment = (todo, index) => {
                     />
                     </svg>
                 </button>
-                <button data-action="complete-toggle" data-id="${index}" title="Complete" class="button ${todo.isDone ? 'done' : 'not-done'}">
+                <button data-action="complete-toggle" data-id="${index}" title="Complete" class="button ${
+  todo.isDone ? 'done' : 'not-done'
+}">
                     <svg data-action="complete-toggle" data-id="${index}" class="svg-complete" viewBox="0 0 24 24">
                     <path data-action="complete-toggle" data-id="${index}"
                         fill="#000000"
@@ -71,7 +75,9 @@ const todoListItemFragment = (todo, index) => {
                 </button>
                 </div>
                 <div class="todo-description-card d-none details-${index} jc-sb col">
-                <p class="todo-description grow-1" data-id="${index}">${todo.description}</p>
+                <p class="todo-description grow-1" data-id="${index}">${
+  todo.description
+}</p>
                 <p class="todo-description">Project: ${todo.project}</p>
                 <p class="todo-description-due-date">Due date and time: ${dueTime}</p>
                 </div>
@@ -79,14 +85,45 @@ const todoListItemFragment = (todo, index) => {
   return createFragment({ classNames, element, html });
 };
 
-const appendTodoListItem = (list) => {
-  const append = (todo, index, isNew) => {
+const filter = {};
+
+const todoListFilter = () => {
+  const getFilter = () => filter;
+  const setFilter = (newFilter = {}) => {
+    Object.assign(filter, newFilter);
+    return filter;
+  };
+  return { getFilter, setFilter };
+};
+
+const filterTodo = (list, todo, index) => {
+  const { type, value } = todoListFilter().getFilter();
+  const appendTodo = () => {
     const listItem = todoListItemFragment(todo, index);
-    if (isNew) {
-      return list.appendChild(listItem);
-    }
-    const oldChild = list.querySelector(`.todo-list-item.list-${index}`);
-    return list.replaceChild(listItem, oldChild);
+    return list.appendChild(listItem);
+  };
+  switch (type) {
+    case 'project':
+      if (todo.project === value) { appendTodo(); }
+      break;
+    case 'isDone':
+      if (todo.isDone) { appendTodo(); }
+      break;
+    case 'isDue':
+      if (!formatDate.isFuture(todo.dueDate)) { appendTodo(); }
+      break;
+    case 'isNotDue':
+      if (formatDate.isFuture(todo.dueDate)) { appendTodo(); }
+      break;
+    default:
+      appendTodo();
+      break;
+  }
+};
+
+const appendTodoListItem = (list) => {
+  const append = (todo, index) => {
+    filterTodo(list, todo, index);
   };
   return append;
 };
@@ -102,7 +139,6 @@ const todoListFragment = () => {
   return todoList;
 };
 
-
 const refreshTodoList = () => {
   const todoSectionElement = document.querySelector('.todo-section');
   const currentTodoList = todoSectionElement.querySelector('.todo-list');
@@ -112,4 +148,5 @@ const refreshTodoList = () => {
   }
 };
 
-export { todoListFragment, appendTodoListItem, refreshTodoList };
+
+export { todoListFragment, refreshTodoList, todoListFilter };

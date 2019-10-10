@@ -1,18 +1,18 @@
 import createFragment from './fragments';
 import projectModel from '../models/projectModel';
 
-const projectListItemFragment = (project, index) => {
+const projectListItemFragment = (project) => {
   const classNames = 'project-list-item';
   const element = 'li';
-  const html = `<button data-id="project-${index}" type="button" class="button">
+  const html = `<button data-filter-type="project" data-filter-value="${project}" type="button" class="button">
                    ${project}
                 </button>`;
   return createFragment({ classNames, element, html });
 };
 
 const appendProjectListItem = (list) => {
-  const append = (project, index) => {
-    const listItem = projectListItemFragment(project, index);
+  const append = (project) => {
+    const listItem = projectListItemFragment(project);
     return list.appendChild(listItem);
   };
   return append;
