@@ -55,7 +55,7 @@ npm run-script start
 
 #### [Assignment link](https://www.theodinproject.com/courses/javascript/lessons/todo-list)
 
-#### [Live link (Coming sooon)]()
+#### [Live link](https://raw.githack.com/SotoArmando/odin-todolist/master/dist/index.html)
 
 ### Screenshots
 
@@ -64,8 +64,6 @@ npm run-script start
 | ![todo view large screen](https://user-images.githubusercontent.com/36057474/66500030-cadeec80-eab8-11e9-8d6f-c0edef28b1e4.png) | ![todo view small screen](https://user-images.githubusercontent.com/36057474/66500033-cb778300-eab8-11e9-8b0c-d98842893557.png) |
 |                                                         Add new project                                                         |                                                          Add new todo                                                           |
 |    ![add new project](https://user-images.githubusercontent.com/36057474/66500036-cc101980-eab8-11e9-9e37-57c2039b5d19.png)     |      ![add new todo](https://user-images.githubusercontent.com/36057474/66500037-cc101980-eab8-11e9-8a64-5fc97fed934c.png)      |
-
-|
 
 #### Authors
 
